@@ -17,7 +17,7 @@ public class Time extends ExponentialRandomStream{
 	
 	Seed ourSeed = new Seed();
 	public void arrivaltime() {
-		ExponentialRandomStream(arrivaltime,ourseed);
+		ExponentialRandomStream(arrivaltime,ourSeed);
 	}
 
 }
