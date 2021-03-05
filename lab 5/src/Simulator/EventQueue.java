@@ -6,9 +6,10 @@ public class EventQueue {
 
 	public EventQueue() {
 		// TODO Auto-generated constructor stub
+		
 	}
 	
-	//tar ut n√§sta element som √§r p√• tur
+	//tar ut n‰sta element som ‰r pÂ tur
 	public Event first() {
 		return queue.get(0);
 	}
@@ -19,32 +20,28 @@ public class EventQueue {
 	}
 	
 	public void SortedSequence(Event event) {
-		ArrayList<Event> newList = new ArrayList<Event>();
+		ArrayList<Event> newlist = new ArrayList<Event>();
 		int count = 0;
-		
-		//s√§tter in alla element som har mindre tid eller lika √§n det nya elementet
+		//s‰tter in alla element som har mindre tid eller lika ‰n det nya elementet
 		for(int i = 0; i < queue.size(); i++) {
 			if(queue.get(i).getTime() <= event.getTime()) {
-				newList.add(queue.get(i));	
+				newlist.add(queue.get(i));	
 			}
 			else {
 				count = i;
 				break;
 		}
-			
-	    //s√§tter in det nya elementet
-		newList.add(event);
-		
-		//s√§tter in alla element som har l√§ngre tid √§n elementet
+	    //s‰tter in det nya elementet
+		newlist.add(event);
+		//s‰tter in alla element som har l‰ngre tid ‰n elementet
 		for(int j = count; j < queue.size(); j++) {
 			if(queue.get(j).getTime() > event.getTime()) {
-				newList.add(queue.get(j));
+				newlist.add(queue.get(j));
 				}
 			}
 		}
-		
 		//Byter lista
-		queue = newList;
+		queue = newlist;
 		
 	}
 	

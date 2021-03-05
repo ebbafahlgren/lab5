@@ -1,29 +1,6 @@
 package Time;
 
-public class Time extends ExponentialRandomStream{
-	private int pickMinTime;
-	private int pickMaxTime;
-	private int payMinTime;
-	private int payMaxTime;
-	private long arrivalTime;
-	private long ourSeed;
-	
-
-	
-	
-	public Time() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	Seed ourSeed = new Seed();
-	public void arrivaltime() {
-		ExponentialRandomStream(arrivaltime,ourSeed);
-	}
-
-}
-
-
-public class Time {
+public class Time {//extends ExponentialRandomStream{
 
 	private ExponentialRandomStream customerArrived;
 	private UniformRandomStream customerPick, customerPay; 
@@ -35,16 +12,23 @@ public class Time {
 		this.customerPick = new UniformRandomStream(minPay, maxPay, seed);
 		
 	}
-	// returnerar n√§sta tid f√∂r en arrivalh√§ndelse (Exponential)
+	// returnerar n‰sta tid fˆr en arrivalh‰ndelse (Exponential)
 	public double arrivalTime() {
 		return customerArrived.next();
 	}
-	// returnerar n√§sta tid f√∂r en pickh√§ndelse (Uniform)
+	// returnerar n‰sta tid fˆr en pickh‰ndelse (Uniform)
 	public double timePick() {
 		return customerPick.next();
 	}
-	// returnerar n√§sta tid f√∂r en payh√§ndelse (Uniform)
+	// returnerar n‰sta tid fˆr en payh‰ndelse (Uniform)
 	public double timePay() {
 		return customerPay.next();
 	}
 	
+	
+	
+	
+	
+	
+	
+}

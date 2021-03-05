@@ -1,14 +1,21 @@
 package Simulator;
+import java.util.Observable;
 
-public class State {
-	Boolean Stopflag;
-	Double Time;
+import State.StoreState;
+import Time.*;
+
+public class State extends Observable {
+	private Boolean StopFlag;
+	private Double Time;
+	private Double currentTime;
 	
 
 	public State() {
-		// TODO Auto-generated constructor stub
+	StoreState store = new StoreState();
 	
 		
 	}
+
+	
 
 }

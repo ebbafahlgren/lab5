@@ -1,5 +1,6 @@
 package Simulator;
 
+import State.Customer;
 
 public abstract class Event {
 	
@@ -12,32 +13,17 @@ public abstract class Event {
 		this.state = state;
 		this.eventqueue = eventqueue;	
 	}
+	 
 	
-	public Double getTime() {
-		return 
-	}
+
+	abstract public void doThis();
+	abstract public double getTime();
+	abstract public Customer getCustoumer();
+	
+
+	 
 	
 	
-	
-	
-	
-	public void Arrival() {
-		
-	}
-	public void Close() {
-		
-	}
-	public void Pay() {
-		
-	}
-	public void Pick() {
-		
-	}
-	public void Start() {
-		
-	}
-	public void Stop() {
-		
-	}
+
 
 }
