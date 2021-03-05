@@ -1,12 +1,12 @@
 package Time;
 
 public class Time extends ExponentialRandomStream{
-	private int pickmintime;
-	private int pickmaxtime;
-	private int paymintime;
-	private int paymaxtime;
-	private long arrivaltime;
-	private long ourseed;
+	private int pickMinTime;
+	private int pickMaxTime;
+	private int payMinTime;
+	private int payMaxTime;
+	private long arrivalTime;
+	private long ourSeed;
 	
 
 	
@@ -15,14 +15,10 @@ public class Time extends ExponentialRandomStream{
 		// TODO Auto-generated constructor stub
 	}
 	
-	Seed frö = new Seed();
+	Seed ourSeed = new Seed();
 	public void arrivaltime() {
 		ExponentialRandomStream(arrivaltime,ourseed);
 	}
-	
-	
-	
-	
 
 }
 
