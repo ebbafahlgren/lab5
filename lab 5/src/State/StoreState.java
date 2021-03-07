@@ -11,23 +11,22 @@ public class StoreState extends State {
 	private double closingTime;
 	private boolean open;
 		
-	// customers holds all customers, even the ones that aren't in the store.
-	   private ArrayList<Customer> customers;
-	   
+	//customers holds all customers, even the ones that aren't in the store.
+	private ArrayList<Customer> customers;
+   
 	// createCustomer  creates new customers.
-	   private CreateCustomer createCustomer;
-	   
+	private CreateCustomer createCustomer;
+   
 	// Queue of customers waiting in line
-	   private FIFO registerQueue;
-	   
-	   
-	   private int customerPayed;
-	   private int availableRegisters;
-	   
-	   private double registerFreetime;
-	   private double customerQueueTime;
-	   private int totalCustomersInQueue;
-	   private double lastPaymentTime;
+	private FIFO registerQueue;
+   
+	private int customerPayed;
+	private int availableRegisters;
+   
+	private double registerFreetime;
+   	private double customerQueueTime;
+   	private int totalCustomersInQueue;
+   	private double lastPaymentTime;
 
 	public StoreState(int numRegister, double closingTime, int maxCustomers) {
 		
@@ -42,7 +41,6 @@ public class StoreState extends State {
 		registerQueue = new FIFO();
 		
 		totalCustomersInQueue = 0;
-		
 	}
 	
 	public boolean isStoreOpen(){
@@ -50,7 +48,7 @@ public class StoreState extends State {
 	}
 	
 	public void setStoreOpen() {
-		this.open = open; //FATTAAR INTE VARFÖR ÄN??
+		this.open = open; //FATTAAR INTE VARFÃ–R Ã„N??
 	}
 	
 	public int getnumRegister() {
@@ -66,11 +64,11 @@ public class StoreState extends State {
 		return customerQueueTime;
 	}
 	
-	public double getregisterFreetime() {
+	public double getRegisterFreetime() {
 		return registerFreetime;
 	}
 	
-	public FIFO getregisterQueue() {
+	public FIFO getRegisterQueue() {
 		return registerQueue;
 	}
 	
@@ -78,18 +76,16 @@ public class StoreState extends State {
 		return customerPayed;
 	}
 	
-	public int getmaxCustomer() {
+	public int getMaxCustomer() {
 		return maxCustomer;
 	}
 	
-	public double getclosingTime() {
+	public double getClosingTime() {
 		return closingTime;
 	}
 	
-	public int getavailableRegisters() {
+	public int getAvailableRegisters() {
 		return availableRegisters;
 	}
 	
-	
-
 }
