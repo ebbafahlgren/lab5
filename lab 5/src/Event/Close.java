@@ -1,11 +1,44 @@
 package Event;
 
-import Simulator.Event;
+import Simulator.*;
+import State.Customer;
+import State.StoreState;
+import Simulator.State;
 
-public class Close extends Event {
+/**
+ * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
+ *
+ */
 
-	public Close() {
-		// TODO Auto-generated constructor stub
+public class Close extends Event{
+
+	private double time;
+	private State state;
+	
+	
+	public Close(State state, EventQueue eventQueue, double time) {
+		//Skickar in state och eventQueue i Event
+		super(state, eventQueue);
+		this.time = time;
+	}
+	
+	
+	
+	@Override
+	public void doThis() {
+		StoreState.update(this);
+		state.getStore().setStoreOpen(false);
+	}
+	
+	@Override
+	public double getTime() {
+		return time;
+	}
+	
+	@Override
+	public Customer getCustomer() {
+		return null;
 	}
 
+	
 }
