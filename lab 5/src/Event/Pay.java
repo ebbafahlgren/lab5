@@ -1,4 +1,5 @@
-//Jag är världssämst så denna är inte korrekt men tror inte själva uppbyggnaden är så fel.
+//Jag är världssämst så denna är inte korrekt men tror inte själva uppbyggnaden är så fel. När jag programmerade i min Eclipse ändrade jag några metoder
+//till public i andra klasser men vågade inte röra något i vårt gemensamma
 
 package Event;
 import java.awt.EventQueue;
