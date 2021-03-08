@@ -9,7 +9,7 @@ public class StoreState extends State {
 	private int maxCustomer;
 	private int numRegister; // antal kassor
 	private double closingTime;
-	private boolean open;
+	private boolean isOpen;
 		
 	//customers holds all customers, even the ones that aren't in the store.
 	private ArrayList<Customer> customers;
@@ -30,7 +30,7 @@ public class StoreState extends State {
 
 	public StoreState(int numRegister, double closingTime, int maxCustomers) {
 		
-		open = false; // Start with a closed store
+		isOpen = false; // Start with a closed store
 		this.maxCustomer = maxCustomers;
 		this.closingTime = closingTime;
 		this.numRegister = numRegister;
@@ -44,11 +44,11 @@ public class StoreState extends State {
 	}
 	
 	public boolean isStoreOpen(){
-		return open;
+		return isOpen;
 	}
 	
-	public void setStoreOpen() {
-		this.open = open; //FATTAAR INTE VARFÖR ÄN??
+	public void setStoreOpen(boolean value) {
+		this.isOpen = value; //FATTAAR INTE VARFÖR ÄN??
 	}
 	
 	public int getnumRegister() {
@@ -87,5 +87,20 @@ public class StoreState extends State {
 	public int getAvailableRegisters() {
 		return availableRegisters;
 	}
+
+	public void setLastPaymentTime(double time) {
+		this.lastPaymentTime = time;
+	}
 	
+	public double getLastPaymentTime() {
+		return lastPaymentTime;
+	}
+	
+	public void addCustomer() {
+		if(isOpen == false) {
+			
+		} else if (getCustomersInStore() < maxCustomer){
+			customer.setState(CustomerState.turnedAway)
+		}
+	}
 }
