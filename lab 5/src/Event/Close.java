@@ -14,31 +14,33 @@ public class Close extends Event{
 
 	private double time;
 	private State state;
-	
-	
+
+
 	public Close(State state, EventQueue eventQueue, double time) {
 		//Skickar in state och eventQueue i Event
 		super(state, eventQueue);
 		this.time = time;
 	}
-	
-	
-	
+
 	@Override
 	public void doThis() {
-		StoreState.update(this);
+		state.update(this);
 		state.getStore().setStoreOpen(false);
 	}
-	
+
 	@Override
 	public double getTime() {
 		return time;
 	}
-	
+
 	@Override
 	public Customer getCustomer() {
 		return null;
 	}
 
-	
+	@Override
+	public String writeOut() {
+		return "Closing store!";
+	}
+
 }
