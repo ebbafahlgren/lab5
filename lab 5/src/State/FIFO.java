@@ -13,13 +13,8 @@ public class FIFO {
 		this.maxLength = 0; 
 
 	}
-
-//	public void add(Customer c) {
-//		queue.add(c);
-//		maxLength = Math.max(maxLength, queue.size());
 	
-	
-	// returnerar maximala antalet köande
+	// returnerar maximala antalet kÃ¶ande
 	public int maxLength() {
 		return maxLength;
 	}
@@ -39,10 +34,12 @@ public class FIFO {
 			throw new NoSuchElementException();
 		}
 	}
+	
 	public int size() {
 		return queue.size();
 	}
-	// Lägger till kunder till kön
+	
+	// LÃ¤gger till kunder till kÃ¶n
 	public void add(Customer c) {
 
 		queue.add(c);
@@ -53,7 +50,8 @@ public class FIFO {
 			maxLength += 1;
 		}
 	}
-	//Håller koll på antalet i kön
+	
+	//HÃ¥ller koll pÃ¥ antalet i kÃ¶n
 	public void addCustomers() {
 		maxLength++;
 	}
@@ -63,7 +61,7 @@ public class FIFO {
 		String returnString = "[ ";
 		for (int i = 0; i < queue.size(); i++) {
 			Customer c = queue.get(i);
-			returnString += c.getCustomerID() + " ";
+			returnString += c.getCustoumerID() + " ";
 		}
 		returnString += "]";
 		return returnString;
