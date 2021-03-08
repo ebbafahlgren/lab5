@@ -1,29 +1,21 @@
 package Simulator;
 
+//import TimePack.*;
 import State.Customer;
 
-public abstract class Event {
+public abstract class Event{
 	
 	State state = new State();
-	EventQueue eventqueue = new EventQueue();
+	EventQueue eventQueue = new EventQueue();
 	
-	
-	public Event(State state, EventQueue eventqueue) {
-		// TODO Auto-generated constructor stub
+	public Event(State state, EventQueue eventQueue) {
 		this.state = state;
-		this.eventqueue = eventqueue;	
+		this.eventQueue = eventQueue;	
 	}
-	 
 	
-
 	abstract public void doThis();
 	abstract public double getTime();
-	abstract public Customer getCustoumer();
-	
-
-	 
-	
-	
-
-
+	abstract public Customer getCustomer();
+	abstract public String writeOut();
 }
+
