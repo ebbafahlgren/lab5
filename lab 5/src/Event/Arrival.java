@@ -1,33 +1,61 @@
 package Event;
+
 import Simulator.*;
+
+import Simulator.*;
+import State.CreateCustomer.customerStatus;
 import State.Customer;
+import State.StoreState;
+import Simulator.State;
 import Time.*;
 
-public class Arrival extends Event {
+/**
+ * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
+ *
+ */
 
-	public  Arrival() {
-		// TODO Auto-generated constructor stub
-		
+public class Arrival extends Event {
+	private Pick pickEvent;
+	private double time;
+	private Customer customer;
+	private State state;
+	private EventQueue eventQueue;
+	//private pickTime picktime = new pickTime();
+
+	//private Pick pickevent = new Pick(state, eventQueue, customer, time);
+	
+	public Arrival(State state, EventQueue eventqueue, double time) {
+		super(state, eventqueue);
+		this.time = time;
+		customer = this.state.getStore().createCustomer();
+
 	}
 
 	@Override
 	public void doThis() {
-		// TODO Auto-generated method stub
+		state.update(this);
+		this.state.getStore().createCustomer();
+		if (customer.getState() == customerStatus.inStore) {
+			double pickTime = this.time + state.timePick(); //
+			pickEvent = new Pick(this.state, this.eventQueue, customer, pickTime);
+			eventQueue.SortedSequence(pickEvent);
+		}
 		
 	}
 
 	@Override
 	public double getTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return time;
 	}
 
 	@Override
-	public Customer getCustoumer() {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	@Override
+	public String writeOut() {
+		return "Arrival";
 	}
 
-	
-	
 }
