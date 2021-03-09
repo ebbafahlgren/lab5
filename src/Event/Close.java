@@ -1,47 +1,47 @@
 package Event;
-import Simulator.Event;
-import Simulator.EventQueue;
-import Simulator.State;
+
+import Simulator.*;
 import State.Customer;
+import State.StoreState;
+import Simulator.State;
 
 /**
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
 
-public class Pick extends Event{
+public class Close extends Event{
 
-	private Customer customer;
 	private double time;
 	private State state;
-	
-	private Pay payEvent;
-	
-	public Pick(State state, EventQueue eventQueue, Customer customer, double time) {
+
+
+	public Close(State state, EventQueue eventQueue, double time) {
+		//Skickar in state och eventQueue i Event
 		super(state, eventQueue);
-		
-		this.customer = customer;
 		this.time = time;
+		this.state = state;
 	}
 
 	@Override
 	public void doThis() {
 		state.update(this);
-		state.getStore().addCustomerTotRegisterQueue()
+		state.getStore().setStoreOpen(false);
 	}
-	
+
 	@Override
 	public double getTime() {
 		return time;
 	}
-	
+
+	@Override
 	public Customer getCustomer() {
-		return customer;
+		return null;
 	}
-	
+
 	@Override
 	public String writeOut() {
-		return "Pickevent";
+		return "Closing store!";
 	}
-	
+
 }
