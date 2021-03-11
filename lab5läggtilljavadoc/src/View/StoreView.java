@@ -14,13 +14,21 @@ import java.util.Observable;
 public class StoreView extends View {
 	private State state;
 	private StoreState store;
-
+	
+	   /**
+   	   * 
+  	   * @param state statusen pÃ¥ butiken 
+  	   * @param store store
+   	   */
 	public StoreView(State state, StoreState store) {
 		super(state, store);
 		this.state = state;
 		this.store = store;
 	}
-
+	
+	  /**
+   	   * skriver ut fÃ¶rsta utskiften i vyn
+    	   */
 	private void firstPrint() {
 		System.out.println("PARAMETRAR");
 		System.out.println("==========");
@@ -30,14 +38,17 @@ public class StoreView extends View {
 		System.out
 				.println("Plocktider, [P_min..Pmax]: [" + state.getPickMinTime() + ".." + state.getPickMaxTime() + "]");
 		System.out.println("Betaltider, [K_min..Kmax]: [" + state.getPayMinTime() + ".." + state.getPayMaxTime() + "]");
-		System.out.println("Frö, f...................: " + state.getSeed());
+		System.out.println("FrÃ¶, f...................: " + state.getSeed());
 		System.out.println("");
-		System.out.println("FÖRLOPP");
+		System.out.println("FÃ–RLOPP");
 		System.out.println("=======");
-		System.out.println("Tid\tHändelse\tKund\tÖ\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö..]");
+		System.out.println("Tid\tHÃ¤ndelse\tKund\tÃ–\tled\tledT\tI\t$\t:-(\tkÃ¶at\tkÃ¶T\tkÃ¶ar\t[KassakÃ¶..]");
 
 	}
-
+	
+	 /**
+   	  * skriver ut andra utskriften i view
+   	  */
 	private void lastPrint() {
 		System.out.println("");
 		System.out.println("RESULTAT");
@@ -52,14 +63,17 @@ public class StoreView extends View {
 				+ formatNumber(store.getRegisterFreetime() / store.getAvailableRegisters()) + " te (dvs "
 				+ formatNumber((store.getRegisterFreetime() / store.getAvailableRegisters())
 						/ (state.getLastPayEventTime()) * 100)
-				+ "% av tiden från" + " öppning tills sista kunden betalat).");
+				+ "% av tiden frÃ¥n" + " Ã¶ppning tills sista kunden betalat).");
 		System.out.println("");
-		System.out.println("3) Total tid " + store.getTotNumCustomersInRegisterQueue() + " kunder tvingats köa: "
+		System.out.println("3) Total tid " + store.getTotNumCustomersInRegisterQueue() + " kunder tvingats kÃ¶a: "
 				+ formatNumber(store.getCustomerQueueTime()) + " te.");
-		System.out.println("\tGenomsnittlig kötid: "
+		System.out.println("\tGenomsnittlig kÃ¶tid: "
 				+ formatNumber(store.getCustomerQueueTime() / store.getTotNumCustomersInRegisterQueue()) + " te.");
 	}
 
+	/**
+	 * skriver ut eventen
+	 */
 	private void printEvent() {
 
 		String formatCurrEvent = "" + state.getEvent().writeOut();
@@ -82,13 +96,11 @@ public class StoreView extends View {
 				+ store.getRegisterQueue().size() + "\t" + store.getRegisterQueue());
 	}
 
-	/**
-	 *
-	 * Formats a inputed number so that it always has two numbers after the decimal.
-	 * 
-	 * @param time
-	 * @return
-	 */
+	  /**
+   	  *
+    	  * @param time time
+   	  * @return correctTime
+   	  */
 
 	private String formatNumber(double time) {
 
@@ -99,6 +111,9 @@ public class StoreView extends View {
 		return correctTime;
 	}
 
+	 /**
+   	  *updatefunktion fÃ¶r storeView
+    	  */
 	@Override
 	public void update(Observable o, Object arg) {
 		
