@@ -15,10 +15,15 @@ public class Pay extends Event {
 	private Customer customer;
 	private State state;
 	private EventQueue eventQueue;
-
-
+	
+	/**
+	 * @param state kommer ange statusen som betalning
+	 * @param eventQueue betalningen kommer pÃ¥verka eventkÃ¶n
+	 * @param time betalningen kommer pÃ¥verka tiden
+	 * @param customer kunden kommer gÃ¶ra en betalning
+	 */
 	public Pay(State state, EventQueue eventQueue, double time, Customer customer) {
-		super(state, eventQueue); //försöker ärva in från Event
+		super(state, eventQueue); //fÃ¶rsÃ¶ker Ã¤rva in frÃ¥n Event
 	     
 		//skapar nya objekt 
 		this.time = time; 
@@ -27,11 +32,16 @@ public class Pay extends Event {
 	    this.state = state;
 	    this.eventQueue = eventQueue;
 	}
-
+	
+	 /** 
+	 * doThis. uppdaterar vad som sker nÃ¤r en en betalning sker 
+	 * Under tiden betalningen sker kommer en kassa markeras som upptagen
+	 * NÃ¤r en betlaning skett och kunden lÃ¤mnar kommer antal personer i butiken uppdateras.
+	 */
 	@Override
 	public void doThis() {
 		//System.out.print("hej");
-		//int customerInStore = arrival; //tänker att det kommer finnas en räknare i arrival som räknar antal inkommande?
+		//int customerInStore = arrival; //tÃ¤nker att det kommer finnas en rÃ¤knare i arrival som rÃ¤knar antal inkommande?
 		
 		state.update(this);
 	      
@@ -39,10 +49,10 @@ public class Pay extends Event {
 	    state.getStore().removeCustomer(customer); //registera att kund ska tas bort
 	    state.getStore().setAAvailableResister();  //GJORDE EN SET FUNKTION
 	    
-	    //System.out.print(state.getStore().getRegisterQueue() + " kassakön");
+	    //System.out.print(state.getStore().getRegisterQueue() + " kassakÃ¶n");
 	    
 	    //FIXA DEN
-	    if (!state.getStore().getRegisterQueue().isEmpty()) { //om FIFOkön inte är tom
+	    if (!state.getStore().getRegisterQueue().isEmpty()) { //om FIFOkÃ¶n inte Ã¤r tom
 	    	//System.out.print("testar testar");
 	    	
 	    	Customer firstInLine = state.getStore().getRegisterQueue().firstInLine();
@@ -57,25 +67,37 @@ public class Pay extends Event {
 	    	
 	    	state.getStore().setARegisterOccupied();
 	    	
-	    	//DENNA SKRIVS INTE UT; VARFÖR HÄNDER INTE DEN??
-	    	//System.out.print("Gör en betalning på tiden " + paymentTime);
+	    	//DENNA SKRIVS INTE UT; VARFÃ–R HÃ„NDER INTE DEN??
+	    	//System.out.print("GÃ¶r en betalning pÃ¥ tiden " + paymentTime);
 	    }
 	    
-	    //System.out.println("Gör en betalning på tiden extraaa " + this.time + " tiden");
+	    //System.out.println("GÃ¶r en betalning pÃ¥ tiden extraaa " + this.time + " tiden");
 	}
-
+	
+	/**
+	 * getTime
+	 * @return time
+	 */
 	@Override
 	public double getTime() {
 		// TODO Auto-generated method stub
 		return time;
 	}
-
+	
+	/**
+	 * getCustomer
+	 * @return customer
+	 */
 	@Override
 	public Customer getCustomer() {
 		// TODO Auto-generated method stub
 		return customer;
 	}
 	
+	/**
+	 * writeOut
+	 * @return string
+	 */
 	@Override
 	public String writeOut() {
 		return "Paying";
