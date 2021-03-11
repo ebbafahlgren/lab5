@@ -19,10 +19,13 @@ public class EventQueue {
 //		System.out.println("eventQ");
 //	}
 	
-	//tar ut nästa element som är på tur
+	/**
+	 * Event first tar nÃ¤sta element som Ã¤r pÃ¥ tur
+	 * @return null
+	 */
 	public Event first() {
 		
-		//System.out.println("först i event ");
+		//System.out.println("fÃ¶rst i event ");
 		
 		//System.out.println(queue.size() + " = eventQueues nuvarande storlek");
 		
@@ -32,30 +35,37 @@ public class EventQueue {
 		return null;
 	}
 	
-	//tar ut storlek
+	/**
+	 * size 
+	 * @return storleken pÃ¥ kÃ¶n
+	 */
 	public int size() {
 		return queue.size();
 	}
 	
+	/**
+	 * 
+	 * @param event. eventen lÃ¤ggs till i en array
+	 */
 	public void SortedSequence(Event event) {
-//		den här stannar simulationen om eventkön är tom och om tiden har gått över stopptiden
+//		den hÃ¤r stannar simulationen om eventkÃ¶n Ã¤r tom och om tiden har gÃ¥tt Ã¶ver stopptiden
 //		if (queue.size() == 0 && event.getTime() > store.getClosingTime()) {
 //			state.stopSimulation();
 //		}
 		
 		
-		/// stannar så butiken ej lägger in fler element
-		// ett visst antal event i kön.
+		/// stannar sÃ¥ butiken ej lÃ¤gger in fler element
+		// ett visst antal event i kÃ¶n.
 		//if (event.getTime() < store.getClosingTime()) {
 			ArrayList<Event> newlist = new ArrayList<Event>();
 			int count = 0;
 			
 			//System.out.println("I EventQueue");
-			//System.out.println(event + " = events värde ex startevent, stopevent etc");
+			//System.out.println(event + " = events vÃ¤rde ex startevent, stopevent etc");
 			
-			//måste lägga till start och stop i listan först
+			//mÃ¥ste lÃ¤gga till start och stop i listan fÃ¶rst
 			
-	        // sätter in alla element som har mindre tid eller lika än det nya elementet
+	        // sÃ¤tter in alla element som har mindre tid eller lika Ã¤n det nya elementet
 			for (int i = 0; i < queue.size(); i++) { // <=
 				
 				//System.out.println("i for-loop ");
@@ -64,17 +74,17 @@ public class EventQueue {
 					newlist.add(queue.get(i));
 					//System.out.println(queue.get(i));
 				} else {
-					//System.out.println("eventet i kön tar längre tid");
+					//System.out.println("eventet i kÃ¶n tar lÃ¤ngre tid");
 					count = i;
 					break; //EVENTUELLT TA BORT
 				}
 			}	
 			
-				// sätter in det nya elementet
+				// sÃ¤tter in det nya elementet
 				newlist.add(event);
 				//System.out.println(newlist + " skriver ut vad som finns i listan");
 				
-			// sätter in alla element som har längre tid än elementet
+			// sÃ¤tter in alla element som har lÃ¤ngre tid Ã¤n elementet
 			for (int j = 0; j < queue.size(); j++) {
 				if (queue.get(j).getTime() > event.getTime()) {
 					newlist.add(queue.get(j));
@@ -100,7 +110,10 @@ public class EventQueue {
 //		}
 		
 
-
+/**
+ * removeFirst
+ * fÃ¶rsta eventet i arrayen tas bort
+ */
 	public void removeFirst() {
 		queue.remove(0);
 	}
