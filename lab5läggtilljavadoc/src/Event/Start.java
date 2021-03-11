@@ -22,19 +22,30 @@ public class Start extends Event {
 
 	private double closeTime;
 	private double time;
+	
+	/**
+	 * 
+	 * @param state starten kommer påverka statusen på butiken till öppen
+	 * @param eventQueue starten kommer påverka eventQueue
+	 */
 
 	public Start(State state, EventQueue eventQueue) {
 		
 		super(state, eventQueue);
 		
-		//System.out.println(state.getClosingTime() + " tid f�r st�ngning");
+		//System.out.println(state.getClosingTime() + " tid för stängning");
 		
-		this.time = 0d; /// ????
+		this.time = 0d; 
 		this.closeTime = state.getClosingTime(); //state.getStore().getClo... funkar ej!
 		this.state = state; //kanske ha med denna
 		this.eventQueue = eventQueue;
 	}
-
+	
+	 /** 
+	 * doThis. uppdaterar vad som sker när en en starten sker
+	 * butiken öppnas efter att butiken varit stängd
+	 * Nästa event blir att en kund ankommer till butiken
+	 */
 	@Override
 	public void doThis() {
 		//System.out.println("Do this i start");
@@ -62,7 +73,7 @@ public class Start extends Event {
 			eventQueue.SortedSequence(arrival);
 		}
 
-		// inte ligga h�r i start.. Start initieras bara n�r simulatorn k�r ig�ng.
+		// inte ligga här i start.. Start initieras bara när simulatorn kör igång.
 //      while(closeTime >  arrivalTime) {
 //    	  arrivalTime += state.arrivalTime();
 //          arrival = new Arrival(this.state, this.eventQueue, arrivalTime);
@@ -71,16 +82,28 @@ public class Start extends Event {
 //      }
 	}
 
+	/**
+ 	 * getTime
+ 	 * @return time
+	 */
 	@Override
 	public double getTime() {
 		return time;
 	}
-
+	
+	/**
+	 * Customer
+	 * @retutn null
+	 */
 	@Override
 	public Customer getCustomer() {
 		return null;
 	}
 
+	/**
+	 * String
+	 * @return String
+ 	 */
 	@Override
 	public String writeOut() {
 		return "Start";
