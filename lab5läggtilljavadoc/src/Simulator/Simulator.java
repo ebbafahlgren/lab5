@@ -23,7 +23,10 @@ public class Simulator {
 		this.eventQueue = new EventQueue();
 
 	}
-
+	
+	/**
+	 * run kör simulatorn
+	 */
 	public void run() {
 
 		eventQueue.SortedSequence(new Start(state, eventQueue));
@@ -38,7 +41,7 @@ public class Simulator {
 		while (eventQueue.size()!=0){
 			Event event = eventQueue.first();
 			event.doThis();
-			eventQueue.removeFirst(); //med denna ligger start kvar i listan tills f�rsta arrival skrivs ut
+			eventQueue.removeFirst(); //med denna ligger start kvar i listan tills första arrival skrivs ut
 		}
 	}
 	
