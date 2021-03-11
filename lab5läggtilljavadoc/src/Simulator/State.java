@@ -42,6 +42,18 @@ public class State extends Observable {
 	private UniformRandomStream customerPick, customerPay;
 	private double maxPickTime; 
 	
+	/**
+	 * 
+	 * @param maxCustomers max antal kunder i butiken
+	 * @param numRegisters antal kassor i butiken
+	 * @param closingTime st√§ngningstiden
+	 * @param lambda tidsvariabel
+	 * @param seed startv√§rde
+	 * @param minPick minsta plocktiden
+	 * @param maxPick l√§ngsta plocktiden
+	 * @param minPay minsta betaltiden
+	 * @param maxPay l√§ngsta betaltiden
+	 */
 	public State(int maxCustomers, int numRegisters, double closingTime, double lambda, long seed, double minPick, double maxPick, double minPay, double maxPay) {
 		stopFlag = true;
 		lastEventTime = 0;
@@ -67,29 +79,40 @@ public class State extends Observable {
 		//Skapar butiken
 		StoreState store = new StoreState(this.numRegisters, this.closingTime, this.maxCustomers);
 		this.store = store;
-		//System.out.println(store + " detta ‰r specifika butiken");
+		//System.out.println(store + " detta √§r specifika butiken");
 	}	
 	
-	
-	// returnerar n‰sta tid fˆr en arrivalh‰ndelse (Exponential)
+	/**
+	 * @return n√§sta tid f√∂r en ankomsth√§ndelse
+	 */
 	public double arrivalTime() {
 		return customerArrived.next();
 	}
 	
-	// returnerar n‰sta tid fˆr en pickh‰ndelse (Uniform)
+	/**
+	 * @return n√∂sta tid f√∂r en plockh√§ndelse
+	 */
 	public double timePick() {
 		return customerPick.next();
 	}
 	
-	// returnerar n‰sta tid fˆr en payh‰ndelse (Uniform)
+	/**	
+	 * @return n√§sta tid f√∂r en betalningsh√§ndelse
+	 */
 	public double timePay() {
 		return customerPay.next();
 	}
-
+	
+	/**
+	 * @return store
+	 */
 	public StoreState getStore() {
 		return store;
 	}
 	
+	/**
+	 * @param thisEvent uppdaterar eventet till det aktuella.
+	 */
 	public void update(Event thisEvent) {
 		currentEvent = thisEvent;
 		currentCustomer = thisEvent.getCustomer();
@@ -110,7 +133,7 @@ public class State extends Observable {
 				
 			} else {
 				if(thisEvent.getClass() == Arrival.class && store.isStoreOpen() == "S" ) {
-					System.out.println(" arrival event efter st‰ngning");
+					System.out.println(" arrival event efter st√§ngning");
 					store.setRegisterFreeTime(store.getRegisterFreetime());
 					
 				} else {
@@ -131,62 +154,107 @@ public class State extends Observable {
 		notifyObservers();
 	}
 	
+	/**
+	 * @return tiden mellan event
+	 */
 	private double timeBetweenEvent() {
 		return currentTime - lastEventTime;
 	}
-
+	
+	/**
+	 * stoppar simulatorn
+	 */
 	public void stopSimulation() {
 		stopFlag = false;
 	}
 	
+	/**
+	 * @return stoppflaggan
+	 */
 	public boolean getStopFlag() {
 		return stopFlag;
 	}
 
+	/**
+	 * @return nuvarande event
+	 */
 	public Event getEvent() {
 		return currentEvent;
 	}
 
+	/**
+	 * @return nuvarande tid
+	 */
 	public double getTime() {
 		return currentTime;
 	}
 	
+	/**
+	 * @return nuvarande tid
+	 */
 	public double getCurrentTime() {
 		return currentTime;
 	}
-
+	
+	/**
+	 * @return nuvarande kund
+	 */
 	public Customer getCustomer() {
 		return currentCustomer;
 	}
 
+	/**
+	 * @return lambda
+ 	 */
 	public double getLambda() {
 		return lambda;
 	}
-
+	
+	/**
+	 * @return pickMinTime
+	 */
 	public double getPickMinTime() {
 		return pickMinTime;
 	}
-
+	
+	/**
+	 * @return picMaxTime
+	 */
 	public double getPickMaxTime() {
 		return pickMaxTime;
 	}
-
+	
+	/**
+	 * @return payMinTime
+	 */
 	public double getPayMinTime() {
 		return payMinTime;
 	}
-
+	
+	/**
+	 * @return payMaxTime
+	 */
 	public double getPayMaxTime() {
 		return payMaxTime;
 	}
 
+	/** 
+	 * @return seed
+	 */
 	public long getSeed() {
 		return seed;
 	}
 
+	/**
+	 * @return closingTime
+	 */
 	public double getClosingTime() {
 		return closingTime;
 	}
-
+	
+	/**
+	 * @return lastPaymentTime
+	 */
 	public double getLastPayEventTime() {
 		return lastPaymentTime;
 	}
