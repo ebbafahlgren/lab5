@@ -20,9 +20,12 @@ public class Arrival extends Event {
 	private Customer customer;
 	private State state;
 	private EventQueue eventQueue;
-	//private pickTime picktime = new pickTime();
-
-	//private Pick pickevent = new Pick(state, eventQueue, customer, time);
+	
+	/** 
+	 * @param state kommer ange statusen som ankomst
+	 * @param eventQueue ankomsten kommer påverka eventkön
+	 * @param time ankomsten kommer påverka tiden
+	 */
 	
 	public Arrival(State state, EventQueue eventQueue, double time) {
 		super(state, eventQueue);
@@ -32,12 +35,17 @@ public class Arrival extends Event {
 		this.state = state;
 		customer = this.state.getStore().createCustomer();
 		//System.out.println("arrival!");
-		//System.out.println(eventQueue + " eventk�n direkt i arrival");
+		//System.out.println(eventQueue + " eventkön direkt i arrival");
 
 		//this.eventQueue = eventQueue;
 		this.eventQueue = eventQueue;
 
 	}
+	/** 
+	 * doThis. uppdaterar vad som sker när en kund ankommer butiken. 
+	 * Antal kunder i butiken uppdateras
+	 * Nästa event kommer vara att kunden plockar varor. 
+	 */
 
 	@Override
 	public void doThis() {
@@ -54,8 +62,8 @@ public class Arrival extends Event {
 			
 			double pickTime = this.time + a;
 			//System.out.println(a);
-			//System.out.println(pickTime + " utr�knad");
-			//System.out.println(this.eventQueue + " eventk�");
+			//System.out.println(pickTime + " uträknad");
+			//System.out.println(this.eventQueue + " eventkö");
 			//System.out.println(this.time + " this time inuti do this");
 			//System.out.println(state.timePick() + " plocktid");
 			
@@ -69,17 +77,26 @@ public class Arrival extends Event {
 			
 		}
 	}
-
+	
+	/**
+	 * getTime
+	 */
 	@Override
 	public double getTime() {
 		return time;
 	}
-
+	
+	/**
+	 * getCustomer
+	 */
 	@Override
 	public Customer getCustomer() {
 		return customer;
 	}
 	
+	 /**
+	 * writeOut
+	 */
 	@Override
 	public String writeOut() {
 		return "Arrival";
