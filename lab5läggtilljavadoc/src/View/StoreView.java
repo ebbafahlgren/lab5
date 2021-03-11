@@ -27,7 +27,7 @@ public class StoreView extends View {
 	}
 	
 	  /**
-   	   * skriver ut fÃ¶rsta utskiften i vyn
+   	   * skriver ut första utskiften i vyn
     	   */
 	private void firstPrint() {
 		System.out.println("PARAMETRAR");
@@ -38,11 +38,11 @@ public class StoreView extends View {
 		System.out
 				.println("Plocktider, [P_min..Pmax]: [" + state.getPickMinTime() + ".." + state.getPickMaxTime() + "]");
 		System.out.println("Betaltider, [K_min..Kmax]: [" + state.getPayMinTime() + ".." + state.getPayMaxTime() + "]");
-		System.out.println("FrÃ¶, f...................: " + state.getSeed());
+		System.out.println("Frö, f...................: " + state.getSeed());
 		System.out.println("");
-		System.out.println("FÃ–RLOPP");
+		System.out.println("FÖRLOPP");
 		System.out.println("=======");
-		System.out.println("Tid\tHÃ¤ndelse\tKund\tÃ–\tled\tledT\tI\t$\t:-(\tkÃ¶at\tkÃ¶T\tkÃ¶ar\t[KassakÃ¶..]");
+		System.out.println("Tid\thändelse\tKund\tÖ\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö..]");
 
 	}
 	
@@ -63,11 +63,11 @@ public class StoreView extends View {
 				+ formatNumber(store.getRegisterFreetime() / store.getAvailableRegisters()) + " te (dvs "
 				+ formatNumber((store.getRegisterFreetime() / store.getAvailableRegisters())
 						/ (state.getLastPayEventTime()) * 100)
-				+ "% av tiden frÃ¥n" + " Ã¶ppning tills sista kunden betalat).");
+				+ "% av tiden från" + " öppning tills sista kunden betalat).");
 		System.out.println("");
-		System.out.println("3) Total tid " + store.getTotNumCustomersInRegisterQueue() + " kunder tvingats kÃ¶a: "
+		System.out.println("3) Total tid " + store.getTotNumCustomersInRegisterQueue() + " kunder tvingats köa: "
 				+ formatNumber(store.getCustomerQueueTime()) + " te.");
-		System.out.println("\tGenomsnittlig kÃ¶tid: "
+		System.out.println("\tGenomsnittlig kötid: "
 				+ formatNumber(store.getCustomerQueueTime() / store.getTotNumCustomersInRegisterQueue()) + " te.");
 	}
 
@@ -112,8 +112,8 @@ public class StoreView extends View {
 	}
 
 	 /**
-   	  *updatefunktion fÃ¶r storeView
-    	  */
+   	  *updatefunktion för storeView
+    */
 	@Override
 	public void update(Observable o, Object arg) {
 		

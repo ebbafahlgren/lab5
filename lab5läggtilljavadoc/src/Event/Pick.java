@@ -51,10 +51,6 @@ public class Pick extends Event{
 		if (state.getStore().getAvailableRegisters() > 0) {
 			
 			double paymentTime = this.time + state.timePay();
-			
-			//System.out.println(paymentTime + "tid för betalning");
-			//System.out.println(this.time + " this time");
-			//System.out.println(state.timePay() + " timepay");
 		
 			payEvent = new Pay(this.state, this.eventQueue, paymentTime, this.customer);
 			eventQueue.SortedSequence(payEvent);

@@ -38,7 +38,6 @@ public class RunSim {
 //      double minPay = 0.35;
 //      double maxPay = 0.6;
 //      double lambda = 3;
-      
         
 
       State state = new State(maxCustomers, registers, closingTime, lambda, seed, minPick, maxPick, minPay, maxPay);

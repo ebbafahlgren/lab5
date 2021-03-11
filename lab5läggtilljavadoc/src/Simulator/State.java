@@ -78,12 +78,9 @@ public class State extends Observable {
 		this.payMaxTime = maxPay;
 		this.lambda = lambda;
 		
-		//System.out.println("Skapar butik");
-		
 		//Skapar butiken
 		StoreState store = new StoreState(this.numRegisters, this.closingTime, this.maxCustomers);
 		this.store = store;
-		//System.out.println(store + " detta är specifika butiken");
 	}	
 	
 	/**
@@ -123,8 +120,6 @@ public class State extends Observable {
 		
 		lastEventTime = currentTime;
 		currentTime = thisEvent.getTime();
-
-		System.out.println(thisEvent.getClass());
 		
 		if(thisEvent.getClass() != Stop.class) {
 			if(store.getAvailableRegisters() == 0) {
@@ -137,23 +132,19 @@ public class State extends Observable {
 				
 			} else {
 				if(thisEvent.getClass() == Arrival.class && store.isStoreOpen() == "S" ) {
-					System.out.println(" arrival event efter stängning");
 					store.setRegisterFreeTime(store.getRegisterFreetime());
 					
 				} else {
 					store.setRegisterFreeTime(store.getRegisterFreetime() + timeBetweenEvent()*store.getAvailableRegisters());
-					System.out.println("i else satsen");
 				}
 			
 				if(thisEvent.getClass() == Pay.class && store.isStoreOpen() == "S") {
 					lastPaymentTime = currentTime;
-					System.out.print("hej");
 				}
 			}
 						
 			store.setTotCustomerQueueTime(store.getCustomerQueueTime() + timeBetweenEvent()*store.getTotCustomersInRegisterQueue());	
 		}
-		
 		setChanged();
 		notifyObservers();
 	}
@@ -262,7 +253,5 @@ public class State extends Observable {
 	public double getLastPayEventTime() {
 		return lastPaymentTime;
 	}
-	
-	
 
 }

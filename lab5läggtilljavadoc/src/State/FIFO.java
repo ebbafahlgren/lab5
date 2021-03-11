@@ -19,7 +19,6 @@ public class FIFO {
 	public FIFO() {
 		this.queue = new ArrayList<Customer>();
 		this.maxLength = 0; 
-
 	}
 	/**
 	 * @return maxlängden i FIFO

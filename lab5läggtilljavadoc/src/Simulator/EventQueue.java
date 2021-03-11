@@ -13,22 +13,12 @@ public class EventQueue {
 	protected ArrayList<Event> queue = new ArrayList<Event>();
 	private State state;
 	private StoreState store;
-
-//	public EventQueue() {
-//		// TODO Auto-generated constructor stub
-//		System.out.println("eventQ");
-//	}
 	
 	/**
 	 * Event first tar nästa element som är på tur
 	 * @return null
 	 */
 	public Event first() {
-		
-		//System.out.println("först i event ");
-		
-		//System.out.println(queue.size() + " = eventQueues nuvarande storlek");
-		
 		if (queue.size() > 0) {
 			return queue.get(0);
 		}
@@ -48,11 +38,6 @@ public class EventQueue {
 	 * @param event. eventen läggs till i en array
 	 */
 	public void SortedSequence(Event event) {
-//		den här stannar simulationen om eventkön är tom och om tiden har gått över stopptiden
-//		if (queue.size() == 0 && event.getTime() > store.getClosingTime()) {
-//			state.stopSimulation();
-//		}
-		
 		
 		/// stannar så butiken ej lägger in fler element
 		// ett visst antal event i kön.

@@ -36,7 +36,7 @@ public class StoreState{ //extends State {
 
 	/**
 	 * @param numRegister antal kassor
- 	 * @param closingTime st√§ngningstid
+ 	 * @param closingTime st‰ngningstid
 	 * @param maxCustomers max antal kunder
 	 */
 	public StoreState(int numRegister, double closingTime, int maxCustomers) {
@@ -52,9 +52,6 @@ public class StoreState{ //extends State {
 		registerQueue = new FIFO();
 		
 		totCustomersInRegisterQueue = 0;
-		//lagt till
-		//StoreState store = new StoreState(maxCustomers, numRegister, maxCustomers);
-		//createCustomer = new createCustomer();
 	}
 	
 	/**
@@ -77,12 +74,12 @@ public class StoreState{ //extends State {
 	 */
 	public String isStoreOpen(){
 			if (isOpen == true) {
-				return "√ñ";
+				return "÷";
 			}
 			else {
 				return "S";
 			}
-	}
+	} //flytta denna till view...
 
 	/**
 	 * @param value value
@@ -126,6 +123,7 @@ public class StoreState{ //extends State {
 	public FIFO getRegisterQueue() {
 		return registerQueue;
 	}
+	
 	/**
 	* @return registerQueue
 	*/

@@ -53,16 +53,11 @@ public class Start extends Event {
 		state.update(this);
 
 		state.getStore().setStoreOpen(true);
-		//state.getStore();
-		//System.out.println(state.getStore() + " butiken");
-		//store.setStoreOpen(true);
-		//storeTest.get
+
 		Start start = new Start(this.state, eventQueue);
-		//eventQueue.SortedSequence(start);
-		
+
 		closeStore = new Close(this.state, eventQueue, closeTime);
 
-		//System.out.println("Sortera in closing");
 		eventQueue.SortedSequence(closeStore);
 
 		double arrivalTime = 0;
@@ -73,13 +68,7 @@ public class Start extends Event {
 			eventQueue.SortedSequence(arrival);
 		}
 
-		// inte ligga här i start.. Start initieras bara när simulatorn kör igång.
-//      while(closeTime >  arrivalTime) {
-//    	  arrivalTime += state.arrivalTime();
-//          arrival = new Arrival(this.state, this.eventQueue, arrivalTime);
-//          eventQueue.SortedSequence(arrival);
-//          break;
-//      }
+
 	}
 
 	/**

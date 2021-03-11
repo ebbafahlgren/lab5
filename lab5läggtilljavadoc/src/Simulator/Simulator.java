@@ -21,7 +21,6 @@ public class Simulator {
 		this.state = state;
 		this.view = view;
 		this.eventQueue = new EventQueue();
-
 	}
 	
 	/**

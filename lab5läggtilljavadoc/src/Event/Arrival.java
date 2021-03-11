@@ -16,7 +16,7 @@ import Time.*;
 
 public class Arrival extends Event {
 	private Pick pickEvent;
-	private double time;
+	private double time; 
 	private Customer customer;
 	private State state;
 	private EventQueue eventQueue;
@@ -61,20 +61,11 @@ public class Arrival extends Event {
 			double a = state.timePick();
 			
 			double pickTime = this.time + a;
-			//System.out.println(a);
-			//System.out.println(pickTime + " uträknad");
-			//System.out.println(this.eventQueue + " eventkö");
-			//System.out.println(this.time + " this time inuti do this");
-			//System.out.println(state.timePick() + " plocktid");
-			
-			//System.out.println(pickTime + " picktime");
 			
 			pickEvent = new Pick(state, eventQueue, customer, pickTime);
 			eventQueue.SortedSequence(pickEvent);
-			//System.out.println(pickEvent);
 			
 			//System.out.println(eventQueue + " = vad som finns i eventQueue");
-			
 		}
 	}
 	
