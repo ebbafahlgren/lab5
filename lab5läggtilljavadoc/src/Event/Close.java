@@ -14,6 +14,13 @@ public class Close extends Event{
 
 	private double time;
 	private State state;
+	
+	/**
+	 * 
+	 * @param state      kommer ange statusen som stängning
+	 * @param eventQueue stängningen kommer påverka eventkön
+	 * @param time       stängningen kommer påverka tiden
+	 */
 
 
 	public Close(State state, EventQueue eventQueue, double time) {
@@ -22,22 +29,39 @@ public class Close extends Event{
 		this.time = time;
 		this.state = state;
 	}
+	
+	/**
+ 	*  doThis uppdaterar statusen på butiken till stängd
+ 	*/
 
 	@Override
 	public void doThis() {
 		state.update(this);
 		state.getStore().setStoreOpen(false);
 	}
+	
+	/**
+	 * getTime 
+	 * @return time
+	 */
 
 	@Override
 	public double getTime() {
 		return time;
 	}
+	/**
+	 * getCustomer
+	 * @return null
+	 */
 
 	@Override
 	public Customer getCustomer() {
 		return null;
 	}
+	/**
+	 * writeOut
+	 * @return string 
+	 */
 
 	@Override
 	public String writeOut() {
