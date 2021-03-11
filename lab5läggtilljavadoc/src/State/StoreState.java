@@ -34,8 +34,11 @@ public class StoreState{ //extends State {
    	private int totCustomersInRegisterQueue;
    	private double lastPaymentTime;
 
-
-
+	/**
+	 * @param numRegister antal kassor
+ 	 * @param closingTime st√§ngningstid
+	 * @param maxCustomers max antal kunder
+	 */
 	public StoreState(int numRegister, double closingTime, int maxCustomers) {
 		
 		isOpen = false; // Start with a closed store
@@ -54,6 +57,10 @@ public class StoreState{ //extends State {
 		//createCustomer = new createCustomer();
 	}
 	
+	/**
+	 * getNumCustomerInStore ger nuvarande antal kunder i butiken
+	 * @return customerInStoreNow
+	 */
 	public int getNumCustomerInStore() {
 		int customerInStoreNow = 0;
 		for(int i = 0; i < customers.size(); i++) {
@@ -63,81 +70,130 @@ public class StoreState{ //extends State {
 		}
 		return customerInStoreNow;
 	}
-
+	
+	/**
+	 * isStoreOpen
+	 * @return isOpen
+	 */
 	public String isStoreOpen(){
 			if (isOpen == true) {
-				return "÷";
+				return "√ñ";
 			}
 			else {
 				return "S";
 			}
 	}
 
-	
+	/**
+	 * @param value value
+	 */
 	public void setStoreOpen(boolean value) {
-		this.isOpen = value; //FATTAAR INTE VARF÷R ƒN??
+		this.isOpen = value; 
 	}
 	
+	/**
+	 * @return antal kassor
+	 */
 	public int getnumRegister() {
 		return numRegister;
 	}
 	
+	/**
+	 * @return customer
+	 */
 	public Customer createCustomer() {
 		Customer customer = createCustomer.createCustomer();
 		return customer;
 	}
 	
-	//ƒNDRA S≈ att tiden ‰ndras.. 
+	/**
+	 * @return customerQueueTime
+	 */
 	public double getCustomerQueueTime() {
 		return customerQueueTime;
 	}
 	
+	/**
+	 * @return registerFreeTime
+	 */
 	public double getRegisterFreetime() {
 		return registerFreetime;
 	}
 	
+	/**
+	 * @return registerQueue
+	 */
 	public FIFO getRegisterQueue() {
 		return registerQueue;
 	}
-	
+	/**
+	* @return registerQueue
+	*/
 	public int getTotNumCustomersInRegisterQueue() {
 		// TODO Auto-generated method stub
 		return registerQueue.getCustomerInQueueTot();
 	}
 	
+	/**
+	 *  returnerar att en till kund har betalat
+	 * @return customerPayed 
+	 */
 	public void customerPayed() {
 		customerPayed++;
 	}
 	
+	/**
+	 * @return customerPayed
+	 */
 	public int numCustomerPayed() {
 		return customerPayed;
 	}	
 	
+	/**
+	 * @return maxCustomer
+	 */
 	public int getMaxCustomer() {
 		return maxCustomer;
 	}
 	
+	/** 
+	 * @return closingTime
+	 */
 	public double getClosingTime() {
 		return closingTime;
 	}
 	
+	/**
+	 * @return avaiableRegisters
+	 */
 	public int getAvailableRegisters() {
 		return availableRegisters;
 	}
 
+	/**
+	 * @param time tiden uppdateras med den senaste betalningstiden
+	 */
 	public void setLastPaymentTime(double time) {
 		this.lastPaymentTime = time;
 	}
 	
+	/**
+	 * @return lastPaymentTime
+	 */
 	public double getLastPaymentTime() {
 		return lastPaymentTime;
 	}
 	
-	//Tar bort kunden
+	/**
+	 * @param customer tar bort kund
+	 */
 	public void removeCustomer(Customer customer) {
 		customer.setState(customerStatus.notInStore);		
 	}
-	// l‰gger till kund till butiken
+	
+	 /**
+	 * @param customer om butiken √§r st√§ngd eller full blir kunden avvisad annars f√•r den komma in
+	 */
 	public void addCustomer(Customer customer) {
 		
 		if(!isOpen) {
@@ -151,6 +207,10 @@ public class StoreState{ //extends State {
 
 	}
 
+	/**
+	 * r√§knar totalt antal kunder i butiken
+	 * @return numCostumerTot
+	 */
 	public int totalCustomers() {
 		int numCustomerTot = 0;
 		
@@ -162,6 +222,10 @@ public class StoreState{ //extends State {
 		return numCustomerTot;
 	}
 	
+	/**
+	 * r√§knar de kunder som inte f√•tt komma in i butiken
+	 * @return numTurnedAway
+	 */
 	public int getTurnedAwayCustomers(){
 		int numTurnedAway = 0;
 		for(int i = 0; i < customers.size(); i++) {
@@ -173,27 +237,44 @@ public class StoreState{ //extends State {
 		return numTurnedAway;
 	}
 
+	/**
+	 * @return totalCustomersInRegisterQueue
+	 */
 	public double getTotCustomersInRegisterQueue() {
 		return getRegisterQueue().size();
 	}
 	
+	/**
+	 * totCustomersInRegisterQueue++
+	 */
 	public void addCustomerTotRegisterQueue() {
 		totCustomersInRegisterQueue++;
 	}
 	
+	/**
+ 	* @param time registerFreetime
+ 	*/
 	public void setRegisterFreeTime(double time) {
 		registerFreetime = time;
 	}
-
+	
+	/**
+	 * @param time k√∂tid f√∂r kunden
+	 */
 	public void setTotCustomerQueueTime(double time) {
 		customerQueueTime = time;
 	}
 
+	/**
+	 * minskar lediga kassor
+ 	 */
 	public void setARegisterOccupied() {
 		availableRegisters--;
 	}
 
-	//GJORDE DENNA FUNKTION som gˆrs n‰r nytt pay-event h‰nder
+	/**
+	 * N√§r en kund betalat blir dennes kassa ledig
+	 */
 	public void setAAvailableResister() {
 		availableRegisters++;
 	}
