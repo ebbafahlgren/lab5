@@ -11,7 +11,11 @@ import Simulator.State;
  */
 
 public class RunSim {
-
+	
+	/**
+	 * 
+	 * @param args argumenen som används
+	 */
    public static void main(String[] args) {
 	   //Simulering 1
       long seed = 1234;
