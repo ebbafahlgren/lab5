@@ -11,6 +11,10 @@ public class CreateCustomer {
 
 	private int customerCount = 0;
 	
+	/**
+	 * räknar kunder
+	 * @return customer
+	 */
 	public Customer createCustomer() {
 		// TODO Auto-generated constructor stub
 		Customer customer = new Customer(customerCount);
@@ -18,7 +22,10 @@ public class CreateCustomer {
 		return customer;
 	}
 	
+	/**
+	 * enum customerStatus
+	 */
 	public enum customerStatus {
-		inStore, notInStore, fullStore, walkedAway;
+		/**inStore*/inStore,/**notInStore*/notInStore,/**fullStore*/fullStore,/**walkedAway*/ walkedAway;
 	}
 }

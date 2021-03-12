@@ -1,4 +1,5 @@
 package Simulator;
+
 import java.util.ArrayList;
 
 import Event.Close;
@@ -14,100 +15,86 @@ public class EventQueue {
 	private State state;
 	private StoreState store;
 
-//	public EventQueue() {
-//		// TODO Auto-generated constructor stub
-//		System.out.println("eventQ");
-//	}
-	
-	//tar ut nästa element som är på tur
+	/**
+	 * Event first tar nÃ¤sta element som Ã¤r pÃ¥ tur
+	 * 
+	 * @return null
+	 */
 	public Event first() {
-		
-		System.out.println("först i event ");
-		
-		System.out.println(queue.size() + " = eventQueues nuvarande storlek");
-		
 		if (queue.size() > 0) {
 			return queue.get(0);
 		}
 		return null;
 	}
-	
-	//tar ut storlek
+
+	/**
+	 * size
+	 * 
+	 * @return storleken pÃ¥ kÃ¶n
+	 */
 	public int size() {
 		return queue.size();
 	}
-	
+
+	/**
+	 * 
+	 * @param event. eventen lÃ¤ggs till i en array
+	 */
 	public void SortedSequence(Event event) {
-//		den här stannar simulationen om eventkön är tom och om tiden har gått över stopptiden
-//		if (queue.size() == 0 && event.getTime() > store.getClosingTime()) {
-//			state.stopSimulation();
-//		}
-		
-		
-		/// stannar så butiken ej lägger in fler element
-		// ett visst antal event i kön.
-		//if (event.getTime() < store.getClosingTime()) {
-			ArrayList<Event> newlist = new ArrayList<Event>();
-			int count = 0;
-			
-			System.out.println("I EventQueue");
-			System.out.println(event + " = events värde ex startevent, stopevent etc");
-			
-			//måste lägga till start och stop i listan först
-			
-	        // sätter in alla element som har mindre tid eller lika än det nya elementet
-			for (int i = 0; i < queue.size(); i++) { // <=
-				
-				System.out.println("i for-loop ");
-				
-				if (queue.get(i).getTime() <= event.getTime()) {
-					newlist.add(queue.get(i));
-					System.out.println(queue.get(i));
-				} else {
-					System.out.print("listan är tom");
-					count = i;
-					break;
-				}
-			}	
-			
-				// sätter in det nya elementet
-				newlist.add(event);
-				System.out.println(newlist + " skriver ut vad som finns i listan");
-				
-				// sätter in alla element som har längre tid än elementet
-				for (int j = count; j < queue.size(); j++) {
-					if (queue.get(j).getTime() > event.getTime()) {
-						newlist.add(queue.get(j));
-					}
-				}
-			//}
-				
-			// Byter lista
-			queue = newlist;
-			System.out.println(queue + " den nya listan");
-			
-			
-			
-			
-			
-//			for(int i = 0; i < queue.size(); i++) {
-//				if(queue.get(i).getTime() < = )
-//			}
+
+		/// stannar sÃ¥ butiken ej lÃ¤gger in fler element
+		// ett visst antal event i kÃ¶n.
+		// if (event.getTime() < store.getClosingTime()) {
+		ArrayList<Event> newlist = new ArrayList<Event>();
+		int count = 0;
+
+		// System.out.println("I EventQueue");
+		// System.out.println(event + " = events vÃ¤rde ex startevent, stopevent etc");
+
+		// mÃ¥ste lÃ¤gga till start och stop i listan fÃ¶rst
+
+		// sÃ¤tter in alla element som har mindre tid eller lika Ã¤n det nya elementet
+		for (int i = 0; i < queue.size(); i++) { // <=
+
+			// System.out.println("i for-loop ");
+
+			if (queue.get(i).getTime() <= event.getTime()) {
+				newlist.add(queue.get(i));
+				// System.out.println(queue.get(i));
+			} else {
+				// System.out.println("eventet i kÃ¶n tar lÃ¤ngre tid");
+				count = i;
+				break; // EVENTUELLT TA BORT
+			}
+		}
+
+		// sÃ¤tter in det nya elementet
+		newlist.add(event);
+		// System.out.println(newlist + " skriver ut vad som finns i listan");
+
+		// sÃ¤tter in alla element som har lÃ¤ngre tid Ã¤n elementet
+		for (int j = 0; j < queue.size(); j++) {
+			if (queue.get(j).getTime() > event.getTime()) {
+				newlist.add(queue.get(j));
+			}
+		}
+
+		// Byter lista
+		queue = newlist;
+		// System.out.println(queue + " den nya listan");
 
 	}
-		
-		//Byter lista
 
-		
-//		if(event == close) {
-//			
-//		}
-		
-
-
+	/**
+	 * removeFirst fÃ¶rsta eventet i arrayen tas bort
+	 */
 	public void removeFirst() {
 		queue.remove(0);
 	}
 
+	public ArrayList<Event> getList() {
+		// TODO Auto-generated method stub
+		return queue;
+	}
 
 }

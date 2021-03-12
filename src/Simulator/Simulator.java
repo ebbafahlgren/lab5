@@ -1,6 +1,7 @@
 package Simulator;
 
 import Simulator.State;
+import State.StoreState;
 import Event.*;
 import View.*;
 import Event.Start;
@@ -13,42 +14,37 @@ import Event.Start;
 public class Simulator {
 
 	private State state;
+	private StoreState store;
 	private EventQueue eventQueue;
 	private View view;
+	private StoreView storeView;
 	private Start start;
 
-	public Simulator(State state, View view) {
-		this.state = state;
-		this.view = view;
+	public Simulator(StoreState store, StoreView storeView) {
+		this.store = store;
+		this.storeView = storeView;
 		this.eventQueue = new EventQueue();
-		
-		System.out.println("kör simulatorn");
 	}
-
+	
+	/**
+	 * run kÃ¶r simulatorn
+	 */
 	public void run() {
+
+		eventQueue.SortedSequence(new Start(store, eventQueue));
 		
-		System.out.println("lägger till start");
-		eventQueue.SortedSequence(new Start(state, eventQueue));
-		
-		System.out.println("lägger till stop");
-		eventQueue.SortedSequence(new Stop(state, eventQueue));
+		eventQueue.SortedSequence(new Stop(store, eventQueue));
 
 		
 		// While simulator is running, it will keep on getting the first event in
 		// queue and running the ques "doThis" function.
-		System.out.println("Run i simulatorn");
-		
-		while (state.getStopFlag()){
+		//System.out.println("Run i simulatorn");
+//		&& state.getStopFlag() ska va i while satsen
+		while (eventQueue.size()!=0 ){
 			Event event = eventQueue.first();
 			event.doThis();
-			eventQueue.removeFirst();
+			eventQueue.removeFirst(); //med denna ligger start kvar i listan tills fÃ¶rsta arrival skrivs ut
 		}
 	}
-//	public void run() throws IndexOutOfBoundsException{
-//		while (this.state.getFlag()) {
-//			if (this.queue.isEmpty()) {
-//				throw new IndexOutOfBoundsException("No ending event has been added!");
-//			}
-//			queue.nextEvent(this.state);
-//	}
+	
 }

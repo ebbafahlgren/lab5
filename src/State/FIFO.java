@@ -11,18 +11,27 @@ public class FIFO {
 
 	private ArrayList<Customer> queue;
 	private int maxLength;
-
+	private int customerInLineTot;
+	
+	/**
+	 * FIFOklass som använder arraylist
+	 */
 	public FIFO() {
 		this.queue = new ArrayList<Customer>();
 		this.maxLength = 0; 
-
 	}
-	
-	// returnerar maximala antalet k�ande
+	/**
+	 * @return maxlängden i FIFO
+	 */
+	// returnerar maximala antalet köande
 	public int maxLength() {
 		return maxLength;
 	}
 	
+	/**
+	 * kollar om FIFO ör tom
+	 * @return true om den är det
+	 */
 	public boolean isEmpty(){
 		if(queue.size() == 0){
 			return true;
@@ -30,6 +39,9 @@ public class FIFO {
 		return false;
 	}
 	
+	/**
+	 * tar bort första elementet i listan
+	 */
 	public void removeFirst() {
 
 		try {
@@ -39,37 +51,61 @@ public class FIFO {
 		}
 	}
 	
+	/**
+	 * @return storleken på kön
+	 */
 	public int size() {
 		return queue.size();
 	}
 	
-	// L�gger till kunder till k�n
+	/**
+	 * 
+	 * @param c lägger till kunder i kön
+	 */
 	public void add(Customer c) {
-
 		queue.add(c);
 		addCustomers();
-
+		customerInLineTot++;
 		if (maxLength < queue.size()) {
 
 			maxLength += 1;
 		}
 	}
 	
-	//H�ller koll p� antalet i k�n
+	/**
+	 * addCustomers håller koll på antalet i kön
+	 */
 	public void addCustomers() {
 		maxLength++;
 	}
 	
+	public int getCustomerInQueueTot() {
+		return customerInLineTot;
+	}
+	
+	/**
+	 * returnerar en textrad för alla värden mindre än köstorleken. 
+	 * @return returnString
+	 */
 	public String toString() {
 
 		String returnString = "[ ";
 		for (int i = 0; i < queue.size(); i++) {
 			Customer c = queue.get(i);
-			returnString += c.getCustoumerID() + " ";
+			returnString += c.getCustomerID() + " ";
 		}
 		returnString += "]";
 		return returnString;
 
+	}
+
+	/**
+ 	* firstInLine
+ 	* @return första värdet i i kön
+ 	*/
+	public Customer firstInLine() {
+		// TODO Auto-generated method stub
+		return queue.get(0);
 	}
 	
 }

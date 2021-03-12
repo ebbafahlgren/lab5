@@ -3,41 +3,50 @@ package Simulator;
 
 import State.StoreState;
 import View.StoreView;
+import Simulator.View;
 import Simulator.State;
 
+
 /**
- * Runs a standard supermarket that will print the events that unfold.
- * The seed for the random number generator will be a set seed, meaning
- * the output will be the same each run.
- * 
- * @author Jesper Frisk, Shahriar Chegini, Oscar Dahlberg, Folke Forshed.
+ * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
 
 public class RunSim {
-
+	/**
+	 * 
+	 * @param args argumenen som anvÃ¤nds
+	 */
    public static void main(String[] args) {
+	   //Simulering 1
       long seed = 1234;
       int maxCustomers = 5;
-      int registers = 4;
-      double closingTime = 100;
+      int registers = 2;
+      double closingTime = 10;
       double minPick = 0.5;
       double maxPick = 1;
       double minPay = 2;
       double maxPay = 3;
       double lambda = 1;
-        
-
-      State state = new State(maxCustomers, registers, closingTime, lambda, seed, minPick, maxPick, minPay, maxPay);
-      System.out.println("har skapat state");
+     
+//	   //Simulering 2
+//      long seed = 13;
+//      int maxCustomers = 7;
+//      int registers = 2;
+//      double closingTime = 8;
+//      double minPick = 0.6;
+//      double maxPick = 0.9;
+//      double minPay = 0.35;
+//      double maxPay = 0.6;
+//      double lambda = 3;   
+      EventQueue eventQueue = new EventQueue();
+      StoreState store = new StoreState(maxCustomers, registers, closingTime, lambda, seed, minPick, maxPick, minPay, maxPay,eventQueue);
+//      State state = new State();
       
-      View view = new StoreView(state, state.getStore());
-      System.out.println("har skapat view");
       
-      Simulator sim = new Simulator(state, view);
-      
-      System.out.println("Nu vill gå in i run");
-      
+    
+      StoreView storeView = new StoreView(store);
+      Simulator sim = new Simulator(store, storeView);   
       sim.run();
       
    }

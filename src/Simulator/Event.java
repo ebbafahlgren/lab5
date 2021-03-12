@@ -14,15 +14,33 @@ public abstract class Event{
 	
 	EventQueue eventQueue = new EventQueue();
 	
-	public Event(State state, EventQueue eventQueue) {
-		System.out.println("Skapar event!");
-		
+	/**
+	 * 
+	 * @param state uppdaterar statusen
+	 * @param eventQueue uppdaterar eventkÃ¶n
+	 */
+	public Event(State state, EventQueue eventQueue) {		
 		this.state = state;
 		this.eventQueue = eventQueue;	
 	}
 	
+	/**
+	 * ropar på doThis
+	 */
 	abstract public void doThis();
+	
+	/**
+	 * @return getTime
+	 */
 	abstract public double getTime();
+	
+	/**  
+	 * @return getCustomer
+	 */
 	abstract public Customer getCustomer();
+	
+	/**
+	 * @return writeOut
+	 **/
 	abstract public String writeOut();
 }

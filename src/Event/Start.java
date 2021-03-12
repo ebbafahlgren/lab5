@@ -3,8 +3,6 @@ package Event;
 import Simulator.Event;
 import Simulator.EventQueue;
 import Simulator.State;
-import State.StoreState;
-
 import State.*;
 
 /**
@@ -22,64 +20,80 @@ public class Start extends Event {
 
 	private double closeTime;
 	private double time;
+	private StoreTime generalTime;
 
-	public Start(State state, EventQueue eventQueue) {
+	/**
+	 * 
+	 * @param state starten kommer pÃ¥verka statusen pÃ¥ butiken till Ã¶ppen
+	 * @param eventQueue starten kommer pÃ¥verka eventQueue
+	 */
+
+	public Start(StoreState store, EventQueue eventQueue) {
 		
-		super(state, eventQueue);
+		super(store, eventQueue);
 		
-		System.out.println(state.getClosingTime() + " tid för stängning");
+		//System.out.println(state.getClosingTime() + " tid fÃ¶r stÃ¤ngning");
 		
-		this.time = 0d; /// ????
-		this.closeTime = state.getClosingTime(); //state.getStore().getClo... funkar ej!
-		this.state = state; //kanske ha med denna
+		this.time = 0d; 
+		this.closeTime = store.getClosingTime(); //state.getStore().getClo... funkar ej!
+		this.store = store; //kanske ha med denna
 		this.eventQueue = eventQueue;
+		generalTime = new StoreTime(store);
 	}
-
+	
+	 /** 
+	 * doThis. uppdaterar vad som sker nÃ¤r en en starten sker
+	 * butiken Ã¶ppnas efter att butiken varit stÃ¤ngd
+	 * NÃ¤sta event blir att en kund ankommer till butiken
+	 */
 	@Override
 	public void doThis() {
-		System.out.println("Do this i start");
+		//System.out.println("Do this i start");
 		
-		//state.update(this);
+		store.update(this);
 
-		state.getStore().setStoreOpen(true);
-		//state.getStore();
-		System.out.println(state.getStore() + " butiken");
-		//store.setStoreOpen(true);
-		//storeTest.get
-		
+		store.setStoreOpen(true);
 
-		closeStore = new Close(this.state, eventQueue, closeTime);
+		Start start = new Start(store, eventQueue);
 
-		System.out.println("Sortera in closing");
+		closeStore = new Close(store, eventQueue, closeTime);
+
 		eventQueue.SortedSequence(closeStore);
 
 		double arrivalTime = 0;
-		
+		System.out.println("heeeeeeeeej " + arrivalTime);
 		while(closeTime > arrivalTime) {
-			arrivalTime = arrivalTime + state.arrivalTime();
-			arrival = new Arrival(this.state, this.eventQueue, arrivalTime);
+			
+			arrivalTime = arrivalTime + generalTime.arrivalTime();
+			arrival = new Arrival(store, this.eventQueue, arrivalTime);
 			eventQueue.SortedSequence(arrival);
 		}
 
-		// inte ligga här i start.. Start initieras bara när simulatorn kör igång.
-//      while(closeTime >  arrivalTime) {
-//    	  arrivalTime += state.arrivalTime();
-//          arrival = new Arrival(this.state, this.eventQueue, arrivalTime);
-//          eventQueue.SortedSequence(arrival);
-//          break;
-//      }
+
 	}
 
+	/**
+ 	 * getTime
+ 	 * @return time
+	 */
 	@Override
 	public double getTime() {
 		return time;
 	}
-
+	
+	/**
+	 * Customer
+	 * @retutn null
+	 */
 	@Override
 	public Customer getCustomer() {
 		return null;
 	}
 
+	/**
+	 * String
+	 * @return String
+ 	 */
 	@Override
 	public String writeOut() {
 		return "Start";
