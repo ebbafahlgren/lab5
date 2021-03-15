@@ -1,9 +1,9 @@
 package Event;
 
-import Simulator.*;
+import simulator.*;
 import State.Customer;
 import State.StoreState;
-import Simulator.State;
+import simulator.State;
 
 /**
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
@@ -37,7 +37,8 @@ public class Close extends Event{
 		store.updateTime(store.getClosingTime());
 		store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
 		store.updateTotQueueTime(store.getCurrentEventTime(), store.getLastEventTime());
-
+		store.setClose();
+		
 		state.update();
 	}
 	

@@ -1,9 +1,11 @@
 package View;
 
 import java.text.DecimalFormat;
+
 import Event.*;
 import State.*;
-import Simulator.*;
+import simulator.View;
+import simulator.*;
 
 import java.util.Observable;
 import java.util.*;
@@ -41,20 +43,24 @@ public class StoreView extends View {
 		  }
 		  return x;
 	  }
-	  public void firstPrint() {
-		  System.out.println("PARAMETRAR\n" + "==========\n" + "Antal kassor, N..........: " + store.getMaxRegisters() + "\n"
-				  + "Max som ryms, M..........: " + store.getMaxCustomers() + "\n" + "Plocktider, [P_min..Pmax]: ["
-				  + store.getPickMinTime() + ".." + store.getPickMaxTime() + "]" + "\n" + "Betaltider, [K_min..Kmax]: ["
-				  + store.getPayMinTime() + ".." + store.getPayMaxTime() + "]" + "\n" + "Ankomshastighet, lambda..: "
-				  + store.getLambda() + "\n" + "Frö, f...................: " + store.getSeed() + "\n");
+	  
+	  
+		private void firstPrint() {
+			System.out.println("PARAMETRAR");
+			System.out.println("==========");
+			System.out.println("Antal kassor, N..........: " + store.getAvailableRegisters());
+			System.out.println("Max som ryms, M..........: " + store.getMaxCustomers());
+			System.out.println("Ankomshastighet, lambda..: " + store.getLambda());
+			System.out
+					.println("Plocktider, [P_min..Pmax]: [" + store.getPickMinTime() + ".." + store.getPickMaxTime() + "]");
+			System.out.println("Betaltider, [K_min..Kmax]: [" + store.getPayMinTime() + ".." + store.getPayMaxTime() + "]");
+			System.out.println("Frö, f...................: " + store.getSeed());
+			System.out.println("");
+			System.out.println("FÖRLOPP");
+			System.out.println("=======");
+			System.out.println("Tid\thändelse\tKund\tÖ\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö..]");
 
-		  System.out.println("FÖRLOPP\n" + "=======");
-
-		  System.out.printf("%-10s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "Tid",
-				  "Händelse", "Kund", "?", "led", "ledT", "I", "$", ":-(", "köat", "köT", "köar", "[kassakö..]");
-
-		  System.out.println("0.00" + "\t" + " " + " " + " " + "Start");
-	  }
+		}
 
 //	  public void lastPrint() {
 //
@@ -112,38 +118,38 @@ public class StoreView extends View {
 	/**
 	 * skriver ut eventen
 	 */
-	public void printEvent() {
+//	public void printEvent() {
+//
+//		System.out.printf("%-10s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
+//				df.format(eventQueue.getCurrentEvent().getTime()), eventQueue.writeOut(), eventQueue.getCurrentEvent().getCustomerID(),
+//				openOrNot(), store.getAvailableRegisters(), df.format(store.getTotalRegisterTime()),
+//				df2.format(store.getCurrentCustomers()), store.getCustomerPayed(), store.getCustomerNotPayed(),
+//				store.getTotCustomersInRegisterQueue()
+//
+//				, df.format(store.getTotalRegisterTime()), store.getTheFIFO().size(), store.getMaxSize() //feeel);
+//
+//	}
+	private void printEvent() {
 
-		System.out.printf("%-10s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
-				df.format(eventQueue.getCurrentEvent().getTime()), eventQueue.writeOut(), eventQueue.getCurrentEvent().getCustomerID(),
-				openOrNot(), store.getAvailableRegisters(), df.format(store.getTotalRegisterTime()),
-				df2.format(store.getCurrentCustomers()), store.getCustomerPayed(), store.getCustomerNotPayed(),
-				store.getTotCustomersInRegisterQueue()
+		String formatCurrEvent = "" + eventQueue.writeOut();
+		if (formatCurrEvent.length() < 4) {
+			formatCurrEvent = formatCurrEvent + " ";
+		}
 
-				, df.format(store.getTotalRegisterTime()), store.getTheFIFO().size(), store.getMaxSize());
+		String checkCustomerNull;
+		if (store.getCustomer() == null) {
+			checkCustomerNull = "---";
+		} else {
+			checkCustomerNull = String.valueOf(store.getCustomer().getID());
+		}
 
+		System.out.println(formatNumber(eventQueue.getCurrentEvent().getTime()) + "\t" + formatCurrEvent + "\t\t" + eventQueue.getCurrentEvent().getCustomerID() + "\t"
+				+ store.isStoreOpen() + "\t" + store.getAvailableRegisters() + "\t"
+				+ formatNumber(store.getTotalRegisterTime()) + "\t" + store.getCurrentCustomers() + "\t"
+				+ store.getCustomerPayed() + "\t" + store.getTurnedAwayCustomers() + "\t"
+				+ store.getTotCustomersInRegisterQueue() + "\t" + formatNumber(store.getTotalRegisterTime()) + "\t"
+				+ store.getTheFIFO().size() + "\t" + store.getTheFIFO());
 	}
-//	private void printEvent() {
-//
-//		String formatCurrEvent = "" + eventQueue.writeOut();
-//		if (formatCurrEvent.length() < 4) {
-//			formatCurrEvent = formatCurrEvent + " ";
-//		}
-//
-//		int checkCustomerNull;
-//		if (store.getCustomer() == null) {
-//			checkCustomerNull = Integer.parseInt("---");
-//		} else {
-//			checkCustomerNull = store.getCustomer().getID();
-//		}
-//
-//		System.out.println(formatNumber(eventQueue.getCurrentEvent().getTime()) + "\t" + formatCurrEvent + "\t\t" + checkCustomerNull + "\t"
-//				+ store.isStoreOpen() + "\t" + store.getAvailableRegisters() + "\t"
-//				+ formatNumber(store.getRegisterFreetime()) + "\t" + store.totalCustomers() + "\t"
-//				+ store.getCustomerPayed() + "\t" + store.getCustomerNotPayed() + "\t"
-//				+ store.getTotCustomersInRegisterQueue() + "\t" + formatNumber(store.getTotalQueueTime()) + "\t"
-//				+ store.getTheFIFO().size() + "\t" + store.getTheFIFO());
-
 
 	  /**
    	  *

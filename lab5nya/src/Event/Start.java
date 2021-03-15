@@ -1,8 +1,8 @@
 package Event;
 
-import Simulator.Event;
-import Simulator.EventQueue;
-import Simulator.State;
+import simulator.Event;
+import simulator.EventQueue;
+import simulator.State;
 import State.StoreState;
 
 import State.*;
@@ -62,18 +62,17 @@ public class Start extends Event {
 				Arrival arrival = new Arrival(store, state, arrivalStartTime, eventQueue, generalTime);
 
 				eventQueue.SortedSequence(arrival);
-				customer = newCust.createCustomer();
+				//customer = newCust.createCustomer();
 
-				arrival.setCustomerStatus(customer);
-				store.addCustomerToArray(customer);
+				//arrival.setCustomerStatus(customer);
+				//store.addCustomerToArray(customer);
 			}
+			
 			closeStore = new Close(state, store);
 
 			eventQueue.SortedSequence(closeStore);
 
 			state.update();
-
-
 		}
 
 		//System.out.println("Do this i start");

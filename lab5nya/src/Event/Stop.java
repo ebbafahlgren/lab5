@@ -1,8 +1,8 @@
 package Event;
 
-import Simulator.Event;
-import Simulator.EventQueue;
-import Simulator.State;
+import simulator.Event;
+import simulator.EventQueue;
+import simulator.State;
 import State.Customer;
 import State.StoreState;
 

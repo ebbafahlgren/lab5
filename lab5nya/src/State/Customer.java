@@ -16,6 +16,7 @@ public class Customer {
 	 * @param customerInt ger en siffra till customerID
 	 */
 	public Customer(int customerInt) {
+		System.out.println("hej");
 		this.customerID = customerInt;
 	}
 	
@@ -38,7 +39,7 @@ public class Customer {
 	}
 
 	/**
-	 * @return str√§ngen av customerID
+	 * @return v‰rdet av customerID
 	 */
 	public int getID() {
 		return customerID;

@@ -1,7 +1,7 @@
 package Event;
-import Simulator.Event;
-import Simulator.EventQueue;
-import Simulator.State;
+import simulator.Event;
+import simulator.EventQueue;
+import simulator.State;
 import State.Customer;
 import State.StoreState;
 import State.StoreTime;
@@ -69,14 +69,17 @@ public class Pick extends Event{
 			state.update();
 
 			//LA TILL ATT KASSAN INTE LÄNGRE ÄR LEDIG
-			store.removeAvailableRegisters();
+			//store.removeAvailableRegisters();
+			store.setARegisterOccupied();
+			
 		} else {
 			store.updateTime(thisPickTime);
 			store.updateTotQueueTime(store.getCurrentEventTime(), store.getLastEventTime());
 			store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
 			state.update();
+			
 			store.getTheFIFO().add(customer);
-			store.addCurrentCustomers();
+			//store.addCurrentCustomers();
 		}
 	}
 	

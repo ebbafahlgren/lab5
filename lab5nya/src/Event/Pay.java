@@ -1,6 +1,6 @@
 package Event;
 
-import Simulator.*;
+import simulator.*;
 import State.Customer;
 import State.FIFO;
 import State.StoreState;
@@ -59,30 +59,30 @@ public class Pay extends Event {
 	    //System.out.print(state.getStore().getRegisterQueue() + " kassakön");
 	    
 	    //FIXA DEN
-	    if (!store.getTheFIFO().isEmpty()) { //om FIFOkön inte är tom
+	    if (!store.getTheFIFO().isEmpty()) { //om FIFOk�n inte �r tom
 	    	//System.out.print("testar testar");
 	    	
 	    	Customer firstInLine = store.getTheFIFO().firstInLine();
 
-	    	
 	    	//double paymentTime = this.time + storeTime.timePay();
 	    	//State state, EventQueue eventQueue, double time, Customer customer, StoreState store
 	    	Pay paymentEvent = new Pay(state, eventQueue, getPayTime(), firstInLine, store, generalTime);
 	    	eventQueue.SortedSequence(paymentEvent);
 	    	
 	    	//this.time = paymentTime;
+
+	    	store.setARegisterOccupied();
+			
+	    	store.getTheFIFO().removeFirst();
 	    	
-	    	store.removeAvailableRegisters();
-			if (store.getTheFIFO().size() > 0) {
-				store.getTheFIFO().removeFirst();
-			}
+	    	store.addCustomerPayed();
 			store.removeCurrentCustomer();
-			store.addCustomerPayed();
+			
+		    System.out.println("kund betalar");
 	    	//DENNA SKRIVS INTE UT; VARFÖR HÄNDER INTE DEN??
 	    	//System.out.print("Gör en betalning på tiden " + paymentTime);
 	    }
-	    
-	    //System.out.println("Gör en betalning på tiden extraaa " + this.time + " tiden");
+	    //System.out.println("G�r en betalning p� tiden " + this.time + " tiden");
 	}
 	
 	/**
@@ -94,6 +94,7 @@ public class Pay extends Event {
 		// TODO Auto-generated method stub
 		return time;
 	}
+	
 	public double getPayTime() {
 		return this.time + generalTime.timePay();
 	}

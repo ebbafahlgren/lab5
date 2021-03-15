@@ -1,12 +1,13 @@
 package Event;
 
-import Simulator.*;
+import simulator.*;
 
-import Simulator.*;
+import simulator.*;
+import State.CreateCustomer;
 import State.CreateCustomer.customerStatus;
 import State.Customer;
 import State.StoreState;
-import Simulator.State;
+import simulator.State;
 import Time.*;
 import State.StoreTime;
 
@@ -37,9 +38,10 @@ public class Arrival extends Event {
 		this.state = state;
 		this.generalTime = generalTime;
 		this.time = time;
-
-
+		
+		customer = store.createCustomer();
 	}
+	
 	/** 
 	 * doThis. uppdaterar vad som sker n√§r en kund ankommer butiken. 
 	 * Antal kunder i butiken uppdateras
@@ -54,20 +56,25 @@ public class Arrival extends Event {
 		store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
 
 		state.update();
-
-		if (store.getCurrentCustomers() < store.getMaxCustomers() && store.isStoreOpen()) {
+		store.addCustomer(customer);
+		//System.out.println("vill gÂ in i butik");
+		
+		if (customer.getState() == customerStatus.inStore) {
+			
+			//System.out.println(store.getCurrentCustomers() + " antal i butik nu");
 			// State state, StoreState store, EventQueue eventQueue, Customer customer, double time, StoreTime generalTime
 			Pick pick = new Pick(state, store, eventQueue, customer, getPickTime(), generalTime);
+			store.addCurrentCustomers();
 
 			eventQueue.SortedSequence(pick);
 
-		} else if (store.isStoreOpen()) {
-			store.addCustomerNotPayed();
 		}
+		
+		//System.out.println(store.getCustomerNotPayed());
 
-		if (store.getCurrentCustomers() < store.getMaxCustomers() && store.isStoreOpen()) {
-			store.addCurrentCustomers();
-		}
+//		if (store.getCurrentCustomers() < store.getMaxCustomers() && store.isStoreOpen()) {
+//			store.addCurrentCustomers();
+//		}
 	}
 
 
@@ -75,9 +82,6 @@ public class Arrival extends Event {
 //
 //		//System.out.print(customer.getState());
 //		if (customer.getState() == customerStatus.inStore) {
-//
-//
-//
 //			double a = generalTime.timePick();
 //
 //			double pickTime = this.time + a;
