@@ -100,8 +100,8 @@ public class Pick extends Event{
 	}
 	
 	/**
-	 * String
-	 * @return string
+	 * returns out pick
+	 * @return pick
 	 */
 
 	public String writeOut() {
