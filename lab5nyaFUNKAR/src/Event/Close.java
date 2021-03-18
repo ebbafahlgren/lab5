@@ -53,11 +53,20 @@ public class Close extends Event{
 	}
 
 
+	/**
+	 * Writing out the string closing
+	 * @return "Closing"
+	 */
 
 	public String writeOut() {
 		return "Closing";
 	}
 
+	
+	/**
+	 * getCustomerID
+	 * @return  "---"
+	 */
 	public String getCustomerID() {
 		return "---";
 	}
