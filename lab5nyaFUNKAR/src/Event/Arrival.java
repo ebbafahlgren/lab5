@@ -28,7 +28,7 @@ public class Arrival extends Event {
 	private double arrivalTimeNew;
 	/** 
 	 * @param state kommer ange statusen som ankomst
-	 * @param eventQueue ankomsten kommer pÃ¥verka eventkÃ¶n
+	 * @param eventQueue ankomsten kommer pÃƒÂ¥verka eventkÃƒÂ¶n
 	 */
 	
 	public Arrival(StoreState store, State state, double arrivalTime, EventQueue eventQueue, StoreTime generalTime) {
@@ -43,9 +43,9 @@ public class Arrival extends Event {
 
 	}
 	/** 
-	 * doThis. uppdaterar vad som sker nÃ¤r en kund ankommer butiken. 
+	 * doThis. uppdaterar vad som sker nÃƒÂ¤r en kund ankommer butiken. 
 	 * Antal kunder i butiken uppdateras
-	 * NÃ¤sta event kommer vara att kunden plockar varor. 
+	 * NÃƒÂ¤sta event kommer vara att kunden plockar varor. 
 	 */
 
 
@@ -72,12 +72,6 @@ public class Arrival extends Event {
 			store.addCurrentCustomers();
 		}
 		
-		
-		//la till en ny slags tid och gör nytt arival-event så länge butiken är öppen?
-		//tror ev den är liiite fel men verkar funka på min iaf
-		
-		//arrivalTimeNew += generalTime.arrivalTime();
-		
 		if (arrivalTimeNew < store.getClosingTime() && store.isStoreOpen()) {
 
 			arrivalTimeNew = arrivalTime + generalTime.arrivalTime();
@@ -98,14 +92,12 @@ public class Arrival extends Event {
 	public double getTime() {
 		return arrivalTime;
 	}
+	/**
+	 * getTime to pick items
+	 */
 
 	public double timePick() {
 		return arrivalTime + generalTime.timePick();
-	}
-
-	public Customer getStore() {
-
-		return customer;
 	}
 	
 	/**
