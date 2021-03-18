@@ -101,7 +101,8 @@ public class Arrival extends Event {
 	}
 	
 	/**
-	 * getCustomer
+	 * getCustomerID
+	 * @return CustomerID
 	 */
 	public String getCustomerID() {
 		return Integer.toString(customer.getID());
@@ -109,6 +110,7 @@ public class Arrival extends Event {
 	
 	 /**
 	 * writeOut
+	 * @returb "Arrival"
 	 */
 
 	public String writeOut() {
