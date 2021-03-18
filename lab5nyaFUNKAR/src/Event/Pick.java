@@ -31,8 +31,6 @@ public class Pick extends Event{
 	 * @param time plockningen kommer påverka tiden
 	 */
 	public Pick(State state, StoreState store, EventQueue eventQueue, Customer customer, double time, StoreTime generalTime) {
-		//super(state, eventQueue);
-		//System.out.println(time + "tid man får in i pick");
 		this.generalTime = generalTime;
 		this.customer = customer;
 		thisPickTime = time;
@@ -50,8 +48,6 @@ public class Pick extends Event{
 	public void doThis() {
 
 		FIFO fifo = store.getTheFIFO();
-
-
 		
 		store.addCustomerToArray(customer);
 	
@@ -59,9 +55,6 @@ public class Pick extends Event{
 			store.updateTime(thisPickTime);
 			store.updateTotQueueTime(store.getCurrentEventTime(), store.getLastEventTime());
 			store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
-
-			//double paymentTime = thisPickTime + storeTime.timePay();
-			//State state, EventQueue eventQueue, double time, Customer customer, StoreState store
 
 			Pay payEvent = new Pay(state, eventQueue, timePay(), customer, store, generalTime);
 			eventQueue.SortedSequence(payEvent);
@@ -77,7 +70,7 @@ public class Pick extends Event{
 			state.update();
 
 			fifo.add(customer);
-			//store.addCurrentCustomers();
+			
 		}
 	}
 	
@@ -90,16 +83,13 @@ public class Pick extends Event{
 		return thisPickTime;
 	}
 
+	/** 
+	* timePay
+	* @return double time to pay
+	*/
 	public double timePay() {
 		return thisPickTime + generalTime.timePay();
 	}
-	/**
-	 * customer
-	 * @return customer
-	 */
-//	public Customer getCustomer() {
-//		return customer;
-//	}
 
 	public String getCustomerID() {
 		return Integer.toString(customer.getID());
