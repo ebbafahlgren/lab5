@@ -16,8 +16,9 @@ public class Close extends Event{
 	
 	/**
 	 * 
-	 * @param state kommer ange statusen som stängning
-	 * @param store bajs
+	 * @param state
+	 * @param store
+	 *
 	 */
 
 
@@ -29,7 +30,7 @@ public class Close extends Event{
 	}
 	
 	/**
- 	*  doThis uppdaterar statusen på butiken till stängd
+ 	*  doThis uppdates the status to closed.
  	*/
 
 
@@ -44,7 +45,7 @@ public class Close extends Event{
 	
 	/**
 	 * getTime 
-	 * @return time
+	 * @return closingtime
 	 */
 
 
