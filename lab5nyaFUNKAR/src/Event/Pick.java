@@ -76,7 +76,7 @@ public class Pick extends Event{
 	
 	/**
 	 * getTime
-	 * @return time
+	 * @return picktime
 	 */
 
 	public double getTime() {
@@ -85,11 +85,15 @@ public class Pick extends Event{
 
 	/** 
 	* timePay
-	* @return double time to pay
+	* @return paytime
 	*/
 	public double timePay() {
 		return thisPickTime + generalTime.timePay();
 	}
+	/**
+	*customerID
+	* @return ID
+	*/
 
 	public String getCustomerID() {
 		return Integer.toString(customer.getID());
