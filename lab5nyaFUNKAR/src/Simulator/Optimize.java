@@ -6,8 +6,16 @@ import Simulator.EventQueue;
 
 import java.util.Random;
 
-public class Optimize {
+public class Optimize implements K{
     int missedCustomers;
+    
+	int maxCustomers = K.M;
+	double closingTime = K.END_TIME;
+	double minPick = K.LOW_COLLECTION_TIME;
+	double maxPick = K.HIGH_COLLECTION_TIME;
+	double minPay = K.LOW_PAYMENT_TIME;
+	double maxPay = K.HIGH_PAYMENT_TIME;
+	double lambda = K.L;
 
     /**
      * Runs first method with given parameters and returns the total amount of
@@ -15,9 +23,10 @@ public class Optimize {
      *
      * @return the number of failed payments
      */
-    public int metod1(int maxCustomers, int registers, double closingTime, double lambda,
+    public static int metod1(int maxCustomers, int registers, double closingTime, double lambda,
                       long seed, double minPick, double maxPick,
                       double minPay, double maxPay, State state, EventQueue eventQueue) {
+
         //State state = new State();
         StoreState store = new StoreState(maxCustomers, registers, closingTime, lambda, seed, minPick,
                 maxPick, minPay, maxPay, eventQueue);
@@ -39,39 +48,70 @@ public class Optimize {
     public int metod2(long seed) {
         // Set parameters for the first method.
 
-        int maxCustomers = 5;
-        double closingTime = 10;
-        double minPick= 0.5;
-        double maxPick = 1;
-        double minPay = 2;
-        double maxPay = 3;
-        double lambda = 1;
+        long seed2 = seed;
 
-        EventQueue eventQueue = new EventQueue();
-        State state = new State();
 
         // Minsta antalet kassor får inte överstiga maxCustomers
-        int minAmountOfRegisters = maxCustomers;
-
-        // Det ursprungliga antalet missade kunder, "kopplar ihop" allt till en int
-
-        int customersMissed = metod1(maxCustomers, minAmountOfRegisters, closingTime, lambda, seed, minPick,
+        int amountOfRegisters = maxCustomers / 2;
+        int getNewMissedCustomer = 0;
+        
+        EventQueue eventQueue = new EventQueue();
+        State state = new State();
+        
+        int optimal = metod1(maxCustomers, maxCustomers, closingTime, lambda, seed2, minPick,
                 maxPick, minPay, maxPay, state, eventQueue);
+        
+        
+        int step = maxCustomers / 4;
+        int prevStep = 0;
+        
+        int counter = 0;
 
         // Vi loopar så länge minsta antalet kassor är minst 1
-        while (minAmountOfRegisters > 0) {
+        while (step != prevStep) {
+        	counter++;
+        	
+        	eventQueue = new EventQueue();
+            state = new State();
             // Vi skapar en ny int och vi kollar om den skiljer sig från det ursprungliga
-            int getNewMissedCustomer = metod1(maxCustomers, minAmountOfRegisters, closingTime, lambda, seed, minPick,
+        	
+            getNewMissedCustomer = metod1(maxCustomers, amountOfRegisters, closingTime, lambda, seed2, minPick,
                     maxPick, minPay, maxPay, state, eventQueue);
 
 
-            if (customersMissed < getNewMissedCustomer) {
-               minAmountOfRegisters ++; // Om det skiljer sig så var det föregående antalet det "optimalaste"
-            } // Vi fortsätter räkna ner
-            minAmountOfRegisters --;
-        }
+            if (getNewMissedCustomer == optimal) {
+            	amountOfRegisters -= step;
+               }
+            else {
+            	amountOfRegisters += step;
+            	prevStep = step;
+            }
 
-        return maxCustomers;
+            step = (int) Math.ceil(step / 2.0);
+            
+            
+//            System.out.println("");
+//            System.out.println(amountOfRegisters + " " + step + " " + prevStep);
+//            System.out.println("");
+
+        }
+        
+        eventQueue = new EventQueue();
+        state = new State();
+        
+        if (metod1(maxCustomers, amountOfRegisters, closingTime, lambda, seed2, minPick,
+                maxPick, minPay, maxPay, state, eventQueue) != optimal) {
+        	amountOfRegisters++;
+        	
+        }
+        eventQueue = new EventQueue();
+            state = new State();
+        	getNewMissedCustomer = metod1(maxCustomers, amountOfRegisters, closingTime, lambda, seed2, minPick,
+                    maxPick, minPay, maxPay, state, eventQueue);
+        System.out.println("Minsta antalet kassor som ger minimalt antal missade " +"(" +
+        getNewMissedCustomer + ")" + " : " + amountOfRegisters );
+        System.out.println("Counter: " + counter);
+        return getNewMissedCustomer;
     }
 
     /**
@@ -101,9 +141,8 @@ public class Optimize {
 
     public static void main(String[] args) {
         Optimize op = new Optimize();
-        long seed = 1234;
-        System.out.println("Optimal amount of registers: ");
-        System.out.println(op.metod2(seed));
-      //  System.out.println(op.metod3(seed));
+        long seed = 42;
+        op.metod2(seed);
+        //System.out.println(op.metod3(seed));
     }
 }

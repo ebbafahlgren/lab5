@@ -8,6 +8,7 @@ import Simulator.*;
 import java.util.Observable;
 import java.util.*;
 /**
+ * Det här är det som skriver ut vyn för butiken. 
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
@@ -121,7 +122,6 @@ public class StoreView extends View {
 				store.getCustomerInQueueTot()
 
 				, df.format(store.getTotalQueueTime()), store.getTheFIFO().size(), store.getPrintedQueue());
-
 	}
 //	private void printEvent() {
 //

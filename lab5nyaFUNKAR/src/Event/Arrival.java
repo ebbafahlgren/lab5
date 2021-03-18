@@ -11,6 +11,7 @@ import Time.*;
 import State.StoreTime;
 
 /**
+ * 
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
@@ -24,13 +25,13 @@ public class Arrival extends Event {
 	private StoreTime generalTime;
 	private StoreState store;
 	
+	private double arrivalTimeNew;
 	/** 
 	 * @param state kommer ange statusen som ankomst
 	 * @param eventQueue ankomsten kommer p√•verka eventk√∂n
 	 */
 	
 	public Arrival(StoreState store, State state, double arrivalTime, EventQueue eventQueue, StoreTime generalTime) {
-	//	super(state, eventQueue);
 
 		this.store = store;
 		this.eventQueue = eventQueue;
@@ -38,6 +39,7 @@ public class Arrival extends Event {
 		this.generalTime = generalTime;
 		this.arrivalTime = arrivalTime;
 
+		customer = store.createCustomer();
 
 	}
 	/** 
@@ -69,26 +71,22 @@ public class Arrival extends Event {
 		if (store.getCurrentCustomers() < store.getMaxCustomers() && store.isStoreOpen()) {
 			store.addCurrentCustomers();
 		}
+		
+		
+		//la till en ny slags tid och gˆr nytt arival-event sÂ l‰nge butiken ‰r ˆppen?
+		//tror ev den ‰r liiite fel men verkar funka pÂ min iaf
+		
+		//arrivalTimeNew += generalTime.arrivalTime();
+		
+		if (arrivalTimeNew < store.getClosingTime() && store.isStoreOpen()) {
+
+			arrivalTimeNew = arrivalTime + generalTime.arrivalTime();
+			Arrival arrival = new Arrival(store, state, arrivalTimeNew, eventQueue, generalTime);
+
+			eventQueue.SortedSequence(arrival);
+		}
 	}
 
-
-//		this.store.addCustomerToArray(customer);
-//
-//		//System.out.print(customer.getState());
-//		if (customer.getState() == customerStatus.inStore) {
-//
-//
-//
-//			double a = generalTime.timePick();
-//
-//			double pickTime = this.time + a;
-//			// State state, EventQueue eventQueue, Customer customer, double time, StoreTime generalTime
-//			pickEvent = new Pick(state, eventQueue, customer, time, generalTime);
-//			eventQueue.SortedSequence(pickEvent);
-//
-//			//System.out.println(eventQueue + " = vad som finns i eventQueue");
-//		}
-//	}
 
 	public void setCustomerStatus(Customer c) {
 		customer = c;
@@ -109,10 +107,10 @@ public class Arrival extends Event {
 
 		return customer;
 	}
+	
 	/**
 	 * getCustomer
 	 */
-
 	public String getCustomerID() {
 		return Integer.toString(customer.getID());
 	}

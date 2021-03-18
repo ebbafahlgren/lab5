@@ -1,6 +1,7 @@
 package Event;
 
 import Simulator.Event;
+
 import Simulator.EventQueue;
 import Simulator.State;
 import State.StoreState;
@@ -56,17 +57,11 @@ public class Start extends Event {
 
 			// double arrivalTime = 0;
 
-			while (arrivalStartTime < store.getClosingTime()) {
-
-				arrivalStartTime += generalTime.arrivalTime();
-				Arrival arrival = new Arrival(store, state, arrivalStartTime, eventQueue, generalTime);
-
-				eventQueue.SortedSequence(arrival);
-				customer = newCust.createCustomer();
-
-				arrival.setCustomerStatus(customer);
-				store.addCustomerToArray(customer);
-			}
+			arrivalStartTime += generalTime.arrivalTime();
+			Arrival arrival = new Arrival(store, state, arrivalStartTime, eventQueue, generalTime);
+			
+			
+			eventQueue.SortedSequence(arrival);
 			Close closeStore = new Close(state, store);
 
 			eventQueue.SortedSequence(closeStore);

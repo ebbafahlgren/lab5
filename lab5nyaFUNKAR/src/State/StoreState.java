@@ -54,7 +54,7 @@ public class StoreState extends State {
    
 	private double registerFreetime;
    	private int totCustomersInRegisterQueue;
-
+   	private CreateCustomer createCustomer = new CreateCustomer();
 
 	/**
 	 * @param registers antal kassor
@@ -163,9 +163,11 @@ public class StoreState extends State {
 	public int getCustomerPayed() {
 		return customerPayed;
 	}
+	
 	public int getCustomerNotPayed() {
 		return customerNotPayed;
 	}
+	
 	public int getTotalPayments() {
 		return currentCustomers + customerPayed + customerNotPayed;
 	}
@@ -289,13 +291,13 @@ public class StoreState extends State {
 //		return numRegister;
 //	}
 //
-//	/**
-//	 * @return customer
-//	 */
-//	public Customer createCustomer() {
-//		Customer customer = createCustomer.createCustomer();
-//		return customer;
-//	}
+	/**
+	 * @return customer
+	 */
+	public Customer createCustomer() {
+		Customer customer = createCustomer.createCustomer();
+		return customer;
+	}
 //
 //	/**
 //	 * @return customerQueueTime
