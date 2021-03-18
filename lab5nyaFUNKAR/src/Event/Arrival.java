@@ -28,7 +28,7 @@ public class Arrival extends Event {
 	private double arrivalTimeNew;
 	/** 
 	 * @param state kommer ange statusen som ankomst
-	 * @param eventQueue ankomsten kommer pÃ¥verka eventkÃ¶n
+	 * @param eventQueue ankomsten påverkar eventkön
 	 */
 	
 	public Arrival(StoreState store, State state, double arrivalTime, EventQueue eventQueue, StoreTime generalTime) {
@@ -54,7 +54,6 @@ public class Arrival extends Event {
 		store.updateTime(arrivalTime);
 		store.updateTotQueueTime(store.getCurrentEventTime(), store.getLastEventTime());
 		store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
-		//store.addCustomerToArray(customer);
 		state.update();
 
 		if (store.getCurrentCustomers() < store.getMaxCustomers() && store.isStoreOpen()) {
@@ -87,6 +86,7 @@ public class Arrival extends Event {
 	}
 	/**
 	 * getTime
+	 * @return double  arrivaltime
 	 */
 
 	public double getTime() {
@@ -94,6 +94,7 @@ public class Arrival extends Event {
 	}
 	/**
 	 * getTime to pick items
+	 * @return picktime
 	 */
 
 	public double timePick() {
@@ -110,7 +111,8 @@ public class Arrival extends Event {
 	
 	 /**
 	 * writeOut
-	 * @returb "Arrival"
+	 * @return  Arrival
+	 *
 	 */
 
 	public String writeOut() {
