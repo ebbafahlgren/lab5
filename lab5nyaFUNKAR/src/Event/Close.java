@@ -48,7 +48,6 @@ public class Close extends Event{
 	 * @return closingtime
 	 */
 
-
 	public double getTime() {
 		return store.getClosingTime();
 	}
