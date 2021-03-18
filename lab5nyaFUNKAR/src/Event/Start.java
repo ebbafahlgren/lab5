@@ -67,18 +67,8 @@ public class Start extends Event {
 			eventQueue.SortedSequence(closeStore);
 
 			state.update();
-
-
 		}
-
-		//System.out.println("Do this i start");
-
-
-		
-//		while(closeTime > arrivalTime) {
-//			arrivalTime = arrivalTime + store.g.arrivalTime();
-//			arrival = new Arrival(this.state, this.eventQueue, arrivalTime);
-//			eventQueue.SortedSequence(arrival);
+	
 
 
 	/**
@@ -90,8 +80,8 @@ public class Start extends Event {
 		return 0.00;
 	}
 	/**
-	 * Customer
-	 * @return null
+	 * returns the string 0
+	 * @return string 
 	 */
 
 	public String getCustomerID() {
