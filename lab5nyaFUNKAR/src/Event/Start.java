@@ -37,12 +37,10 @@ public class Start extends Event {
 	 */
 
 	public Start(State state, EventQueue eventQueue, StoreState store, StoreTime generalTime) {
-		// super(state, eventQueue);
 		this.state = state;
 		this.eventQueue = eventQueue;
 		this.store = store;
 		this.generalTime = generalTime;
-		//this.closeTime = store.getClosingTime(); //state.getStore().getClo... funkar ej!
 
 		arrivalStartTime = 0;
 	}
@@ -54,9 +52,6 @@ public class Start extends Event {
 		 */
 
 		public void doThis () {
-
-			// double arrivalTime = 0;
-
 			arrivalStartTime += generalTime.arrivalTime();
 			Arrival arrival = new Arrival(store, state, arrivalStartTime, eventQueue, generalTime);
 			
@@ -81,7 +76,7 @@ public class Start extends Event {
 	}
 	/**
 	 * returns the string 0
-	 * @return string 
+	 * @return 0
 	 */
 
 	public String getCustomerID() {
@@ -90,7 +85,7 @@ public class Start extends Event {
 
 	/**
 	 * Returns the string start
-	 * @return String
+	 * @return start
  	 */
 
 	public String writeOut() {
