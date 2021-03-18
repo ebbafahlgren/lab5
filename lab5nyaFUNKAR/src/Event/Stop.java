@@ -45,7 +45,7 @@ public class Stop extends Event {
 	
 	/**
  	 * returns getcustomerID
-	 * @return string	
+	 * @return 999	
 	 */
 	public String getCustomerID() {
 		return "999";
@@ -54,7 +54,7 @@ public class Stop extends Event {
 	
 	/**
  	 * String
-	 * @return String
+	 * @return Stop
  	 */
 	@Override
 	public String writeOut() {
