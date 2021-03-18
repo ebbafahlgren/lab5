@@ -66,16 +66,10 @@ public class Pay extends Event {
 			Customer firstInLine = store.getTheFIFO().firstInLine();
 
 
-			//double paymentTime = this.time + storeTime.timePay();
-			//State state, EventQueue eventQueue, double time, Customer customer, StoreState store
 
 			double payTime = this.time + generalTime.timePay();
 			Pay paymentEvent = new Pay(state, eventQueue, payTime, firstInLine, store, generalTime);
 			eventQueue.SortedSequence(paymentEvent);
-
-			//this.time = paymentTime;
-
-
 			store.removeAvailableRegisters();
 		}
 			if (store.getTheFIFO().size() > 0) {
@@ -83,12 +77,7 @@ public class Pay extends Event {
 			}
 			store.removeCurrentCustomer();
 			store.addCustomerPayed();
-	    	//DENNA SKRIVS INTE UT; VARFÖR HÄNDER INTE DEN??
-	    	//System.out.print("Gör en betalning på tiden " + paymentTime);
-	    }
-	    
-	    //System.out.println("Gör en betalning på tiden extraaa " + this.time + " tiden");
-
+	}
 	
 	/**
 	 * getTime
@@ -99,14 +88,16 @@ public class Pay extends Event {
 
 		return time;
 	}
+	/**
+	* getTotaltime
+	* @return totaltime
+	*/
+	
 	public double totalTime() {
 
 		return getTime() + time;
 	}
-//	public double getPayTime() {
-//		return this.time + generalTime.timePay();
-//	}
-	
+
 	/**
 	 * getCustomer
 	 * @return customer
@@ -118,7 +109,7 @@ public class Pay extends Event {
 	
 	/**
 	 * writeOut
-	 * @return string
+	 * @return string "paying"
 	 */
 
 	public String writeOut() {
