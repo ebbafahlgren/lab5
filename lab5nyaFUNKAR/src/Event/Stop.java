@@ -41,12 +41,11 @@ public class Stop extends Event {
 	@Override
 	public void doThis() {
 		state.turnOfSimulation();
-		//state.turnOfSimulator(); // Den ska sluta köra simulator
 	}
 	
 	/**
- 	 * getCustomer
-	 * @return null	
+ 	 * returns getcustomerID
+	 * @return string	
 	 */
 	public String getCustomerID() {
 		return "999";
