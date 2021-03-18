@@ -26,12 +26,8 @@ public class Pay extends Event {
 	 * @param c kunden kommer göra en betalning
 	 */
 	public Pay(State state, EventQueue eventQueue, double time, Customer c, StoreState store, StoreTime generalTime) {
-		//super(state, eventQueue); //försöker ärva in från Event
-	     
-		//skapar nya objekt 
 		this.time = time;
 	   	customer = c;
-	    //System.out.println("skapar pay event");
 	    this.state = state;
 	    this.eventQueue = eventQueue;
 	    this.store = store;
@@ -45,27 +41,17 @@ public class Pay extends Event {
 	 */
 
 	public void doThis() {
-		//System.out.print("hej");
-		//int customerInStore = arrival; //tänker att det kommer finnas en räknare i arrival som räknar antal inkommande?
 
 		store.updateTime(time);
 		store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
 		store.updateTotQueueTime(store.getCurrentEventTime(), store.getLastEventTime());
 
-	   // store.getCustomerPayed(); //registrera att kunder betalat
-	   // store.removeCurrentCustomer(); //registera att kund ska tas bort
 		state.update();
-	    store.addAvailableRegisters();  //GJORDE EN SET FUNKTION
+	    store.addAvailableRegisters();  
 
-	    //System.out.print(state.getStore().getRegisterQueue() + " kassakön");
 	    
-	    //FIXA DEN
 	    if (!store.getTheFIFO().isEmpty()) { //om FIFOkön inte är tom
-			//System.out.print("testar testar");
-
 			Customer firstInLine = store.getTheFIFO().firstInLine();
-
-
 
 			double payTime = this.time + generalTime.timePay();
 			Pay paymentEvent = new Pay(state, eventQueue, payTime, firstInLine, store, generalTime);
@@ -109,7 +95,7 @@ public class Pay extends Event {
 	
 	/**
 	 * writeOut
-	 * @return string "paying"
+	 * @return "paying"
 	 */
 
 	public String writeOut() {
