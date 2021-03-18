@@ -41,7 +41,7 @@ public class StoreState extends State {
 	private double pickMaxTime;
 
 	private int numRegister; // antal kassor
-	private boolean isOpen; //kollar om butiken �r �ppen
+	private boolean isOpen; //kollar om butiken är öppen
    
 	// Queue of customers waiting in line
 	private FIFO registerQueue;
@@ -54,12 +54,19 @@ public class StoreState extends State {
    
 	private double registerFreetime;
    	private int totCustomersInRegisterQueue;
-   	private CreateCustomer createCustomer = new CreateCustomer();
+
 
 	/**
 	 * @param registers antal kassor
- 	 * @param closingTime st�ngningstid
+ 	 * @param closingTime stängningstid
 	 * @param maxCustomers max antal kunder
+	 * @param lambda ankomsthastighet
+	 * @param seed frö
+	 * @param minPick minsta plocktiden
+	 * @param maxPick max plocktiden
+	 * @param maxPay max betalningstid
+	 * @param minPay minsta betalningstid
+	 * @param eventQueue eventkön
 	 */
 	public StoreState(int maxCustomers, int registers, double closingTime, double lambda,
 					  long seed, double minPick, double maxPick,
@@ -81,43 +88,92 @@ public class StoreState extends State {
 
 	}
 
+	/**
+	 * Lägger till kund i en ArrayList
+	 * @param customer lägger till kund
+	 */
+
 	public void addCustomerToArray(Customer customer) {
 		customerList.add(customer);
 	}
+
+	/**
+	 * Räknar antalet lyckade betalningar
+	 */
 	public void addCustomerPayed() {
 		customerPayed++;
 	}
+
+	/**
+	 * Räknar antalet misslyckade betalningar
+	 */
 	public void addCustomerNotPayed() {
 		customerNotPayed++;
 	}
+
+	/**
+	 * Räknar antalet kunder i butiken
+	 */
 	public void addCurrentCustomers() {
 		currentCustomers++;
 	}
+
+	/**
+	 * Räknar antalet lediga kassor
+	 */
 	public void addAvailableRegisters() {
 		availableRegisters++;
 	}
+
+	/**
+	 * En setter som stänger butiken
+	 */
 	public void setStoreClose() {
 		isOpen = false;
 	}
+
+	/**
+	 * Kollar om butiken är öppen eller stängd
+	 * @return isOpen
+	 */
 	public boolean isStoreOpen() {
 		return isOpen;
 	}
 	public int getQueue(){
 		return registerQueue.size();
 	}
+
+	/**
+	 * Tar bort customers från butiken
+	 */
 	public void removeCurrentCustomer() {
 		currentCustomers--;
 	}
+
+	/**
+	 * Tar bort lediga kassor
+	 */
 	public void removeAvailableRegisters() {
 		availableRegisters--;
 	}
+
+	/**
+	 * Returnerar ankomsthastigheten lambda
+	 * @return lambda
+	 */
 	public double getLambda() {
 		return lambda;
 	}
+
+	/**
+	 * Returnerar fröet
+	 * @return seed
+	 */
 	public long getSeed() {
 		return seed;
 	}
 	/**
+	 * Returnerar minsta plocktiden
 	 * @return pickMinTime
 	 */
 	public double getPickMinTime() {
@@ -125,13 +181,15 @@ public class StoreState extends State {
 	}
 
 	/**
-	 * @return picMaxTime
+	 * Returnerar maximala plocktiden
+	 * @return pickMaxTime
 	 */
 	public double getPickMaxTime() {
 		return pickMaxTime;
 	}
 
 	/**
+	 * Returnerar minsta betalningstiden
 	 * @return payMinTime
 	 */
 	public double getPayMinTime() {
@@ -139,38 +197,82 @@ public class StoreState extends State {
 	}
 
 	/**
+	 * Returnerar högsta betalningstiden
 	 * @return payMaxTime
 	 */
 	public double getPayMaxTime() {
 		return payMaxTime;
 	}
 
+	/**
+	 * Returnerar närvarande kunder
+	 * @return currentCustomers
+	 */
 	public int getCurrentCustomers() {
 		return currentCustomers;
 	}
+
+	/**
+	 * Returnerar tiden för stängning
+	 * @return closingTime
+	 */
 	public double getClosingTime() {
 		return closingTime;
 	}
+
+	/**
+	 * Returnerar max antal kunder som får vistas i butiken
+	 * @return maxCustomers
+	 */
 	public int getMaxCustomers() {
 		return maxCustomers;
 	}
+
+	/**
+	 * Returnerar max antal registers
+	 * @return maxRegisters
+	 */
 	public int getMaxRegisters() {
 		return maxRegisters;
 	}
+
+	/**
+	 * Hämtar lediga kassor
+	 * @return availableRegisters
+	 */
 	public int getAvailableRegisters() {
 		return availableRegisters;
 	}
+
+	/**
+	 * Hämtar antalet lyckade betalningar
+	 * @return customerPayed
+	 */
 	public int getCustomerPayed() {
 		return customerPayed;
 	}
-	
+
+	/**
+	 * Returnerar antalet misslyckade betalningar
+	 * @return customerNotPayed
+	 */
 	public int getCustomerNotPayed() {
 		return customerNotPayed;
 	}
-	
+
+	/**
+	 * Returnerar både lyckade och misslyckade betalningar
+	 * @return customerPayed + customerNotPayed
+	 */
 	public int getTotalPayments() {
-		return currentCustomers + customerPayed + customerNotPayed;
+		return  customerPayed + customerNotPayed;
 	}
+
+	/**
+	 * Uppdaterar kassatiden allt eftersom betalningar görs
+	 * @param currentTime
+	 * @param lastEventTime
+	 */
 
 	public void updateTotRegisterTime(double currentTime, double lastEventTime) {
 		if(isStoreOpen()) {
@@ -189,387 +291,127 @@ public class StoreState extends State {
 			}
 		}
 	}
+
+	/**
+	 * Uppdaterar den totala kötiden mha den nuvarande tiden minus eventtiden
+	 * @param currentTime
+	 * @param lastEventTime
+	 */
 	public void updateTotQueueTime(double currentTime, double lastEventTime) {
 		totalQueueTime += (currentTime - lastEventTime) * registerQueue.size();
 	}
+
+	/**
+	 * Uppdaterar tiden kontinuerligt så att tiderna räknas rätt för varje event
+	 * @param time
+	 */
 	public void updateTime(double time) {
 		lastEventTime = currentEventTime;
 		currentEventTime = time;
 	}
+
+	/**
+	 * Returnerar tiden för förra eventhändelsen
+	 * @return lastEventTime
+	 */
 	public double getLastEventTime() {
 		return lastEventTime;
 	}
+
+	/**
+	 * Returnerar tiden för den nuvarande eventet
+	 * @return currentEventTime
+	 */
 	public double getCurrentEventTime(){
 		return currentEventTime;
 	}
+
+	/**
+	 * Returnerar förra tiden för betalning
+	 * @return lastPaymentTime
+	 */
 	public double getLastPaymentTime(){
 		return lastPaymentTime;
 	}
+
+	/**
+	 * Returnerar totala kassatiden
+	 * @return totalRegisterTime
+	 */
 	public double getTotalRegisterTime() {
 		return totalRegisterTime;
 	}
+
+	/**
+	 * Returnerar totala kötiden
+	 * @return totalQueueTime
+	 */
 	public double getTotalQueueTime() {
 		return totalQueueTime;
 	}
+
+	/**
+	 * Returnerar största storleken
+	 * @return maxLength
+	 */
 	public int getMaxSize() {
 		return registerQueue.maxLength();
 	}
+
+	/**
+	 * returnerar fifokön
+	 * @return registerQueue
+	 */
 	public FIFO getTheFIFO() {
 		return registerQueue;
 
 	}
+
+	/**
+	 * Returnerar kön som en string
+	 * @return string kö
+	 */
 	public String getPrintedQueue() {
 		return registerQueue.toString();
 	}
 
-//	public int totalCustomers() {
-//		int numCustomerTot = 0;
-//
-//		for(int i = 0; i < customerList.size(); i++) {
-//			if(customerList.get(i).getState() != customerStatus.walkedAway) {
-//				numCustomerTot++;
-//			}
-//		}
-//		return numCustomerTot;
-//	}
 		public double getRegisterFreetime() {
 		return registerFreetime;
 	}
+
+	/**
+	 *
+	 * @return totala antalet i kön
+	 */
 	public int getCustomerInQueueTot() {
 		return registerQueue.getCustomerInQueueTot();
 	}
+
+	/**
+	 * getstore
+	 * @return store
+	 */
 	public StoreState getStore() {
 		return store;
 	}
+
+	/**
+	 * Returnerar den specifika kunden
+	 * @return currentCustomer
+	 */
 	public Customer getCustomer() {
 		return currentCustomer;
 	}
 
 
-//
-//
-//
-//
-//	/**
-//	 * getNumCustomerInStore ger nuvarande antal kunder i butiken
-//	 * @return customerInStoreNow
-//	 */
-//	public int getNumCustomerInStore() {
-//		int customerInStoreNow = 0;
-//		for(int i = 0; i < customers.size(); i++) {
-//			if(customers.get(i).getState() == customerStatus.inStore) {
-//				customerInStoreNow++;
-//			}
-//		}
-//		return customerInStoreNow;
-//	}
-//
-//	/**
-//	 * isStoreOpen
-//	 * @return isOpen
-//	 */
-//	public String isStoreOpen(){
-//			if (isOpen == true) {
-//				return "�";
-//			}
-//			else {
-//				return "S";
-//			}
-//	} //flytta denna till view...
-//
-//	/**
-//	 * @param value value
-//	 */
-//	public void setStoreOpen(boolean value) {
-//		this.isOpen = value;
-//	}
-//
-//	/**
-//	 * @return antal kassor
-//	 */
-//	public int getnumRegister() {
-//		return numRegister;
-//	}
-//
-	/**
-	 * @return customer
-	 */
-	public Customer createCustomer() {
-		Customer customer = createCustomer.createCustomer();
-		return customer;
-	}
-//
-//	/**
-//	 * @return customerQueueTime
-//	 */
-//	public double getCustomerQueueTime() {
-//		return customerQueueTime;
-//	}
-//
-//	/**
-//	 * @return registerFreeTime
-//	 */
-
-//
-//	/**
-//	 * @return registerQueue
-//	 */
-//	public FIFO getRegisterQueue() {
-//		return registerQueue;
-//	}
-//
-//	/**
-//	* @return registerQueue
-//	*/
-//	public int getTotNumCustomersInRegisterQueue() {
-//		// TODO Auto-generated method stub
-//		return registerQueue.getCustomerInQueueTot();
-//	}
-//
-//	/**
-//	 *  returnerar att en till kund har betalat
-//	 * @return customerPayed
-//	 */
-//	public void customerPayed() {
-//		customerPayed++;
-//	}
-//
-//	/**
-//	 * @return customerPayed
-//	 */
-//	public int numCustomerPayed() {
-//		return customerPayed;
-//	}
-//
-//	/**
-//	 * @return maxCustomer
-//	 */
-//	public int getMaxCustomer() {
-//		return maxCustomer;
-//	}
-//
-//
-//	/**
-//	 * @return avaiableRegisters
-//	 */
-//	public int getAvailableRegisters() {
-//		return availableRegisters;
-//	}
-//
-//	/**
-//	 * @param time tiden uppdateras med den senaste betalningstiden
-//	 */
-//	public void setLastPaymentTime(double time) {
-//		this.lastPaymentTime = time;
-//	}
-//
-//	/**
-//	 * @return lastPaymentTime
-//	 */
-//	public double getLastPaymentTime() {
-//		return lastPaymentTime;
-//	}
-//
-//	/**
-//	 * @param customer tar bort kund
-//	 */
-//	public void removeCustomer(Customer customer) {
-//		customer.setState(customerStatus.notInStore);
-//	}
-//
-//	 /**
-//	 * @param customer om butiken är stängd eller full blir kunden avvisad annars får den komma in
-//	 */
-//	public void addCustomer(Customer customer) {
-//
-//		if(!isOpen) {
-//			customer.setState(customerStatus.walkedAway);
-//		} else if(getNumCustomerInStore() < maxCustomer) {
-//			customer.setState(customerStatus.inStore);
-//		} else {
-//			customer.setState(customerStatus.fullStore);
-//		}
-//		customers.add(customer);
-//
-//	}
-//
-//	/**
-//	 * räknar totalt antal kunder i butiken
-//	 * @return numCostumerTot
-//	 */
-//	public int totalCustomers() {
-//		int numCustomerTot = 0;
-//
-//		for(int i = 0; i < customers.size(); i++) {
-//			if(customers.get(i).getState() != customerStatus.walkedAway) {
-//				numCustomerTot++;
-//			}
-//		}
-//		return numCustomerTot;
-//	}
-//
-//	/**
-//	 * räknar de kunder som inte fått komma in i butiken
-//	 * @return numTurnedAway
-//	 */
-//	public int getTurnedAwayCustomers(){
-//		int numTurnedAway = 0;
-//		for(int i = 0; i < customers.size(); i++) {
-//			if(customers.get(i).getState() == customerStatus.fullStore) {
-//				//System.out.print(numTurnedAway);
-//				numTurnedAway++;
-//			}
-//		}
-//		return numTurnedAway;
-//	}
-//
-//	/**
-//	 * @return totalCustomersInRegisterQueue
-//	 */
-//	public double getTotCustomersInRegisterQueue() {
-//		return getRegisterQueue().size();
-//	}
-//
-//	/**
-//	 * totCustomersInRegisterQueue++
-//	 */
-//	public void addCustomerTotRegisterQueue() {
-//		totCustomersInRegisterQueue++;
-//	}
-//
-//	/**
-// 	* @param time registerFreetime
-// 	*/
-//	public void setRegisterFreeTime(double time) {
-//		registerFreetime = time;
-//	}
-//
-//	/**
-//	 * @param time kötid för kunden
-//	 */
-//	public void setTotCustomerQueueTime(double time) {
-//		customerQueueTime = time;
-//	}
-//
-//	/**
-//	 * minskar lediga kassor
-// 	 */
-//	public void setARegisterOccupied() {
-//		availableRegisters--;
-//	}
-//
-//	/**
-//	 * När en kund betalat blir dennes kassa ledig
-//	 */
-//	public void setAAvailableResister() {
-//		availableRegisters++;
-//	}
-//
-//	/**
-//	 * @return tiden mellan event
-//	 */
-//	private double timeBetweenEvent() {
-//		return currentTime - lastEventTime;
-//	}
-//
-//
-//	/**
-//	 * @return stoppflaggan
-//	 */
-//	public boolean getStopFlag() {
-//		return stopFlag;
-//	}
-//
-//	/**
-//	 * @return nuvarande event
-//	 */
-//	public Event getEvent() {
-//		return currentEvent;
-//	}
-//
-//	/**
-//	 * @return nuvarande tid
-//	 */
-//	public double getTime() {
-//		return currentTime;
-//	}
-//
-//
-//
-//	/**
-//	 * @return nuvarande kund
-//	 */
-
-//
-//	/**
-//	 * @return lambda
-//	 */
-//	public double getLambda() {
-//		return lambda;
-//	}
-//
-//
-//
-//	/**
-//	 * @return seed
-//	 */
-//	public long getSeed() {
-//		return seed;
-//	}
-//
-//	/**
-//	 * @return closingTime
-//	 */
-//	public double getClosingTime() {
-//		return closingTime;
-//	}
-//
-//	/**
-//	 * @return lastPaymentTime
-//	 */
-//	public double getLastPayEventTime() {
-//		return lastPaymentTime;
-//	}
-//
-//
-//	public void update(Event thisEvent) {
-//		currentEvent = thisEvent;
-//		currentCustomer = thisEvent.getCustomer();
-//
-//		lastEventTime = currentTime;
-//		currentTime = thisEvent.getTime();
-//
-//		if(thisEvent.getClass() != Stop.class) {
-//			if(store.getAvailableRegisters() == 0) {
-//
-//				store.setRegisterFreeTime(store.getRegisterFreetime());
-//
-//				if(thisEvent.getClass() == Pay.class) {
-//					store.setLastPaymentTime(thisEvent.getTime());
-//				}
-//
-//			} else {
-//				if(thisEvent.getClass() == Arrival.class && store.isStoreOpen() == "S" ) {
-//					store.setRegisterFreeTime(store.getRegisterFreetime());
-//
-//				} else {
-//					store.setRegisterFreeTime(store.getRegisterFreetime() + timeBetweenEvent()*store.getAvailableRegisters());
-//				}
-//
-//				if(thisEvent.getClass() == Pay.class && store.isStoreOpen() == "S") {
-//					lastPaymentTime = currentTime;
-//				}
-//			}
-//
-//			store.setTotCustomerQueueTime(store.getCustomerQueueTime() + timeBetweenEvent()*store.getTotCustomersInRegisterQueue());
-//		}
-//		setChanged();
-//		notifyObservers();
-//	}
 
 
 
 }
+
+
+
+
 
 
 
