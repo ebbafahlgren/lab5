@@ -54,6 +54,7 @@ public class StoreState extends State {
    
 	private double registerFreetime;
    	private int totCustomersInRegisterQueue;
+	private CreateCustomer createCustomer = new CreateCustomer();
 
 
 	/**
@@ -403,6 +404,13 @@ public class StoreState extends State {
 		return currentCustomer;
 	}
 
+	/**
+	 * @return customer
+	 */
+	public Customer createCustomer() {
+		Customer customer = createCustomer.createCustomer();
+		return customer;
+	}
 
 
 
