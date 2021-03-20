@@ -9,18 +9,18 @@ import State.*;
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  */
 
+/**
+ * View is an observer
+ *
+ */
+
 public class View implements Observer {
 
-//   public View(State state, StoreState store, EventQueue eventQueue)
-//   {
-//      state.addObserver(StoreView);
-//
-//   }
 
     /**
      *
-     * @param o Observerbara objektet
-     * @param arg Objektet som observeras
+     * @param o observable object
+     * @param arg object
      */
     public void update(Observable o, Object arg) {
 
