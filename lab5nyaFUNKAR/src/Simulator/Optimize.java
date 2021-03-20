@@ -6,6 +6,15 @@ import Simulator.EventQueue;
 
 import java.util.Random;
 
+/**
+ * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
+ *
+ */
+
+/**
+* Optimize opitmizes the simulator to the optimal amount of registers
+*/
+
 public class Optimize implements K{
     int missedCustomers;
     
@@ -30,9 +39,9 @@ public class Optimize implements K{
         //State state = new State();
         StoreState store = new StoreState(maxCustomers, registers, closingTime, lambda, seed, minPick,
                 maxPick, minPay, maxPay, eventQueue);
-        Simulator simulator = new Simulator(eventQueue, state, store); // Vet inte varför det ska va null där men det funkar
+        Simulator simulator = new Simulator(eventQueue, state, store); // Vet inte varfÃ¶r det ska va null dÃ¤r men det funkar
         simulator.run();
-        return store.getCustomerNotPayed(); // Här returnerar vi då Alla misslyckade betalningar
+        return store.getCustomerNotPayed(); // HÃ¤r returnerar vi dÃ¥ Alla misslyckade betalningar
     }
 
     /**
@@ -40,7 +49,6 @@ public class Optimize implements K{
      * getting a higher amount of missed customers. The amount of registers start
      * with the maximum amount of customers and iterates downwards until the optimal
      * amount of registers have been found.
-     * <p>
      * Second method runs the first method until we find the min amount of registers
      *
      * @return optimal number of registers for this specific seed
@@ -51,7 +59,7 @@ public class Optimize implements K{
         long seed2 = seed;
 
 
-        // Minsta antalet kassor får inte överstiga maxCustomers
+        // Minsta antalet kassor fÃ¥r inte Ã¶verstiga maxCustomers
         int amountOfRegisters = maxCustomers / 2;
         int getNewMissedCustomer = 0;
         
@@ -67,13 +75,13 @@ public class Optimize implements K{
         
         int counter = 0;
 
-        // Vi loopar så länge minsta antalet kassor är minst 1
+        // Vi loopar sÃ¥ lÃ¤nge minsta antalet kassor Ã¤r minst 1
         while (step != prevStep) {
         	counter++;
         	
         	eventQueue = new EventQueue();
             state = new State();
-            // Vi skapar en ny int och vi kollar om den skiljer sig från det ursprungliga
+            // Vi skapar en ny int och vi kollar om den skiljer sig frÃ¥n det ursprungliga
         	
             getNewMissedCustomer = metod1(maxCustomers, amountOfRegisters, closingTime, lambda, seed2, minPick,
                     maxPick, minPay, maxPay, state, eventQueue);
@@ -89,11 +97,7 @@ public class Optimize implements K{
 
             step = (int) Math.ceil(step / 2.0);
             
-            
-//            System.out.println("");
-//            System.out.println(amountOfRegisters + " " + step + " " + prevStep);
-//            System.out.println("");
-
+           
         }
         
         eventQueue = new EventQueue();
@@ -138,6 +142,10 @@ public class Optimize implements K{
         }
         return maxMinRegisters;
     }
+	/**
+	* main does the optimization
+	* @param args runs the main function
+	*/
 
     public static void main(String[] args) {
         Optimize op = new Optimize();
