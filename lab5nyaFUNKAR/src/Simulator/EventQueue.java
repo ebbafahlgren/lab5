@@ -9,6 +9,11 @@ import State.StoreState;
  *
  */
 
+/**
+* EventQueue is a class that organizes the events by time. The shortest time should be placed first in the list.
+*
+*/
+
 public class EventQueue {
 	private ArrayList<Event> queue = new ArrayList<Event>();
 
@@ -23,82 +28,56 @@ public class EventQueue {
 		}
 		return null;
 	}
+	
+	/** 
+	* 
+	* getCurrentEvent returns the current event
+	* @return event
+	*/
 	public Event getCurrentEvent() {
 		return queue.get(0);
 	}
+	
+	/** 
+	* eventDone does the event and removes it from the list
+	*/
 	public void eventDone() {
 		Event event = queue.get(0);
 		event.doThis();
 		queue.remove(0);
 	}
 	/**
-	 * size 
-	 * @return storleken på kön
+	 * size returns the current size of the queue of events
+	 * @return queue.size
 	 */
 	public int size() {
 		return queue.size();
 	}
 	
-
+	/** 
+	* 
+	* @param event sort the events by time
+	*/
 	public void SortedSequence(Event event) {
-//		ArrayList<Event> updatedEventList = new ArrayList<Event>();
-//
-//		/*
-//		 * Adds all events with shorter runtime than the event we wish to add to an
-//		 * updated list.
-//		 */
-//		for (Event shorterEvent : queue) {
-//			if (shorterEvent.getTime() <= e.getTime()) {
-//				updatedEventList.add(shorterEvent);
-//			}
-//		}
-//		/*
-//		 * Adds the event itself after the events with lesser runtime has been added.
-//		 */
-//		updatedEventList.add(e);
-//
-//		/*
-//		 * Adds all events with longer runtime than the event we just added to the list.
-//		 */
-//		for (Event lengthierEvent : queue) {
-//			if (lengthierEvent.getTime() > e.getTime()) {
-//				updatedEventList.add(lengthierEvent);
-//			}
-//		}
-//		/*
-//		 * Reassigns eventList to the new updated list.
-//		 */
-//		queue = updatedEventList;
-//		/// stannar så butiken ej lägger in fler element
-//		// ett visst antal event i kön.
-		//if (event.getTime() < store.getClosingTime()) {
+//		
 			ArrayList<Event> newlist = new ArrayList<Event>();
 			int count = 0;
 
-			//System.out.println("I EventQueue");
-			//System.out.println(event + " = events värde ex startevent, stopevent etc");
-
-			//måste lägga till start och stop i listan först
-
-	        // sätter in alla element som har mindre tid eller lika än det nya elementet
+			
 			for (int i = 0; i < queue.size(); i++) { // <=
-
-				//System.out.println("i for-loop ");
 
 				if (queue.get(i).getTime() <= event.getTime()) {
 					newlist.add(queue.get(i));
-					//System.out.println(queue.get(i));
+					
 				} else {
-					//System.out.println("eventet i kön tar längre tid");
+					
 					count = i;
-					break; //EVENTUELLT TA BORT
+					break; 
 				}
 			}
-				// sätter in det nya elementet
+				
 				newlist.add(event);
-				//System.out.println(newlist + " skriver ut vad som finns i listan");
-
-			// sätter in alla element som har längre tid än elementet
+				
 			for (int j = 0; j < queue.size(); j++) {
 				if (queue.get(j).getTime() > event.getTime()) {
 					newlist.add(queue.get(j));
@@ -107,20 +86,35 @@ public class EventQueue {
 
 			// Byter lista
 			queue = newlist;
-			//System.out.println(queue + " den nya listan");
+			
 	}
 
-
+	/** 
+	* Arraylist returns the queue of events
+	* @return queue
+	*/
 	public ArrayList<Event> getList() {
 		return queue;
 	}
+	
+	/** 
+	* writeOut returns the value of which states the events name
+	* @return string
+	*/
 	public String writeOut() {
 		return queue.get(0).writeOut();
 	}
+	/** 
+	* toString returns a string of all events in the queue
+	* @return string
+	*/
 	public String toString() {
 		return queue.toString();
 	}
-
+	/** 
+	* 
+	* removeFirst removes the first event in the queue. This should be done after the event has been done. After doThis.
+	*/
 
 	public void removeFirst() {
 		queue.remove(0);
