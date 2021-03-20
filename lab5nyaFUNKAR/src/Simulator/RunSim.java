@@ -10,11 +10,16 @@ import Simulator.State;
  *
  */
 
+/**
+ * The class Runsim runs the simulation of a store
+ *
+ */
+
 public class RunSim {
 	
 	/**
 	 * 
-	 * @param args argumenen som används
+	 * @param args runs the main
 	 */
    public static void main(String[] args) {
 	   //Simulering 1
@@ -51,7 +56,7 @@ public class RunSim {
 //        
       EventQueue eventQueue = new EventQueue();
       State state = new State();
-//      View view = new StoreView(state, state.getStore());
+
       StoreState store = new StoreState(maxCustomers, registers, closingTime, lambda,
               seed, minPick,  maxPick, minPay, maxPay, eventQueue);
 
