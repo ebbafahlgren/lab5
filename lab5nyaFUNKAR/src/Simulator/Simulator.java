@@ -11,6 +11,11 @@ import State.StoreTime;
  *
  */
 
+/**
+ * Simulator creates a simulation of a store
+ *
+ */
+
 public class Simulator {
 	private StoreState store;
 	private State state;
@@ -18,6 +23,11 @@ public class Simulator {
 	private StoreTime generalTime;
 	private Start start;
 
+/**
+ * @param eventQueue is the event queue
+ * @param state is general for the simulator, it contains a stopflag and functions to turn it on and off
+ * @param store is a type of state which describes a store
+ */
 	public Simulator(EventQueue eventQueue, State state, StoreState store) {
 		this.state = state;
 		this.store = store;
@@ -26,7 +36,7 @@ public class Simulator {
 	}
 	
 	/**
-	 * run kör simulatorn
+	 * run the simulator
 	 */
 	public void run() {
 
