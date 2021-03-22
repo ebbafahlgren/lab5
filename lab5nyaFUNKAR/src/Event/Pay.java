@@ -9,6 +9,9 @@ import State.StoreTime;
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
+/**
+* Pay creates an payment.
+*/
 
 public class Pay extends Event {
 
