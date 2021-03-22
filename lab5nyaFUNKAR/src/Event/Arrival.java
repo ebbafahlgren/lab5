@@ -84,7 +84,7 @@ public class Arrival extends Event {
 	}
 
 	/**
-	 * @Param c sätter kundens status
+	 * @param c sätter kundens status
 	 */
 	public void setCustomerStatus(Customer c) {
 		customer = c;
