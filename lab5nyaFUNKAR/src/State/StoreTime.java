@@ -7,6 +7,10 @@ import Time.*;
  *
  */
 
+/**
+* StoreTime generates an arrivaltime, picktime & paytime by using the method next();
+*/
+
 public class StoreTime {
 
     private ExponentialRandomStream customerArrived;
