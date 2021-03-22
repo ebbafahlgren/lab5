@@ -11,6 +11,10 @@ import State.FIFO;
  *
  */
 
+/**
+ * The class pick describes how an pick event works
+ */
+
 public class Pick extends Event{
 
 	private Customer customer;
@@ -29,6 +33,8 @@ public class Pick extends Event{
 	 * @param eventQueue plockningen kommer påverka eventkön
 	 * @param customer kunden plockar varor
 	 * @param time plockningen kommer påverka tiden
+	 * @param store butiken
+	 * @param generalTime den generella tiden
 	 */
 	public Pick(State state, StoreState store, EventQueue eventQueue, Customer customer, double time, StoreTime generalTime) {
 		this.generalTime = generalTime;
@@ -44,7 +50,6 @@ public class Pick extends Event{
 	 * När kunden plockat klart kommer den att betala eller ställa sig i kö till kassorna om det inte finns en kassa ledig. 
 	 * Nästa event kommer bli betalning
 	 */
-
 	public void doThis() {
 
 		FIFO fifo = store.getTheFIFO();
@@ -78,7 +83,6 @@ public class Pick extends Event{
 	 * getTime
 	 * @return picktime
 	 */
-
 	public double getTime() {
 		return thisPickTime;
 	}
@@ -103,7 +107,6 @@ public class Pick extends Event{
 	 * returns out pick
 	 * @return pick
 	 */
-
 	public String writeOut() {
 		return "Pick";
 	}
