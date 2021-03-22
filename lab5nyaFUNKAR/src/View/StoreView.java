@@ -8,7 +8,7 @@ import Simulator.*;
 import java.util.Observable;
 import java.util.*;
 /**
- * Det här är det som skriver ut vyn för butiken. 
+ * Det hÃ¤r Ã¤r det som skriver ut vyn fÃ¶r butiken. 
  * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
  *
  */
@@ -22,7 +22,7 @@ public class StoreView extends View {
 	DecimalFormat df2 = new DecimalFormat("#0");
 	   /**
    	   * 
-  	   * @param state statusen pÃ¥ butiken 
+  	   * @param state statusen pÃƒÂ¥ butiken 
   	   * @param store store
    	   */
 	public StoreView(State state, StoreState store, EventQueue eventQueue) {
@@ -33,57 +33,32 @@ public class StoreView extends View {
 	}
 	
 	  /**
-   	   * skriver ut första utskiften i vyn
+   	   * skriver ut fÃ¶rsta utskiften i vyn
     	   */
 	  private String openOrNot() {
 		  String x = "S";
 		  if (store.isStoreOpen() == true) {
-			  x = "Ö";
+			  x = "Ã–";
 		  }
 		  return x;
 	  }
+	/**
+	* prints out the parameters first
+	*/
 	  public void firstPrint() {
 		  System.out.println("PARAMETRAR\n" + "==========\n" + "Antal kassor, N..........: " + store.getMaxRegisters() + "\n"
 				  + "Max som ryms, M..........: " + store.getMaxCustomers() + "\n" + "Plocktider, [P_min..Pmax]: ["
 				  + store.getPickMinTime() + ".." + store.getPickMaxTime() + "]" + "\n" + "Betaltider, [K_min..Kmax]: ["
 				  + store.getPayMinTime() + ".." + store.getPayMaxTime() + "]" + "\n" + "Ankomshastighet, lambda..: "
-				  + store.getLambda() + "\n" + "Frö, f...................: " + store.getSeed() + "\n");
+				  + store.getLambda() + "\n" + "FrÃ¶, f...................: " + store.getSeed() + "\n");
 
-		  System.out.println("FÖRLOPP\n" + "=======");
+		  System.out.println("FÃ–RLOPP\n" + "=======");
 
 		  System.out.printf("%-10s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n", "Tid",
-				  "Händelse", "Kund", "?", "led", "ledT", "I", "$", ":-(", "köat", "köT", "köar", "[kassakö..]");
+				  "HÃ¤ndelse", "Kund", "?", "led", "ledT", "I", "$", ":-(", "kÃ¶at", "kÃ¶T", "kÃ¶ar", "[kassakÃ¶..]");
 
 		  System.out.println("0.00" + "\t" + " " + " " + " " + "Start");
 	  }
-
-//	  public void lastPrint() {
-//
-//		  System.out.printf("%-10s %-15s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
-//				  df.format(eventQueue.getCurrentEvent().getTime()), eventQueue.writeOut(), eventQueue.getCurrentEvent().getCustomerID(),
-//				  openOrNot(), store.getFreeRegisters(), df.format(store.getRegisterTime()),
-//				  df2.format(store.getPresentCustomers()), store.getSuccessfulPurchase(), store.getFailedPurchase(),
-//				  store.getCustomersQueued()
-//
-//				  , df.format(store.getCollectedQueueTime()), store.getFIFO().size(), store.getPrintedLine());
-//
-//	  }
-//	private void firstPrint() {
-//		System.out.println("PARAMETRAR");
-//		System.out.println("==========");
-//		System.out.println("Antal kassor, N..........: " + store.getAvailableRegisters());
-//		System.out.println("Max som ryms, M..........: " + store.getMaxCustomers());
-//		System.out.println("Ankomshastighet, lambda..: " + store.getLambda());
-//		System.out
-//				.println("Plocktider, [P_min..Pmax]: [" + store.getPickMinTime() + ".." + store.getPickMaxTime() + "]");
-//		System.out.println("Betaltider, [K_min..Kmax]: [" + store.getPayMinTime() + ".." + store.getPayMaxTime() + "]");
-//		System.out.println("Frö, f...................: " + store.getSeed());
-//		System.out.println("");
-//		System.out.println("FÖRLOPP");
-//		System.out.println("=======");
-//		System.out.println("Tid\thändelse\tKund\tÖ\tled\tledT\tI\t$\t:-(\tköat\tköT\tköar\t[Kassakö..]");
-//
-//	}
 	
 	 /**
    	  * skriver ut andra utskriften i view
@@ -102,11 +77,11 @@ public class StoreView extends View {
 				+ formatNumber(store.getTotalRegisterTime() / store.getMaxRegisters()) + " te (dvs "
 				+ formatNumber((store.getTotalRegisterTime() / store.getMaxRegisters())
 						/ (store.getLastPaymentTime()) * 100)
-				+ "% av tiden från" + " öppning tills sista kunden betalat).");
+				+ "% av tiden frÃ¥n" + " Ã¶ppning tills sista kunden betalat).");
 		System.out.println("");
-		System.out.println("3) Total tid " + store.getCustomerInQueueTot() + " kunder tvingats köa: "
+		System.out.println("3) Total tid " + store.getCustomerInQueueTot() + " kunder tvingats kÃ¶a: "
 				+ formatNumber(store.getTotalQueueTime()) + " te.");
-		System.out.println("\tGenomsnittlig kötid: "
+		System.out.println("\tGenomsnittlig kÃ¶tid: "
 				+ formatNumber(store.getTotalQueueTime() / store.getCustomerInQueueTot()) + " te.");
 	}
 
@@ -161,7 +136,7 @@ public class StoreView extends View {
 	}
 
 	 /**
-   	  *updatefunktion för storeView
+   	  *updatefunktion fÃ¶r storeView
     */
 
 	public void update(Observable o, Object arg) {
