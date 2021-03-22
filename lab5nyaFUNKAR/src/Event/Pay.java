@@ -27,6 +27,8 @@ public class Pay extends Event {
 	 * @param eventQueue betalningen kommer påverka eventkön
 	 * @param time betalningen kommer påverka tiden
 	 * @param c kunden kommer göra en betalning
+	 * @param store butiken
+	 * @param generalTime generella tiden
 	 */
 	public Pay(State state, EventQueue eventQueue, double time, Customer c, StoreState store, StoreTime generalTime) {
 		this.time = time;
