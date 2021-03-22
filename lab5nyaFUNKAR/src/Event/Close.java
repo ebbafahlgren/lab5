@@ -10,6 +10,10 @@ import Simulator.State;
  *
  */
 
+/**
+ * The class close describes how a close event works
+ */
+
 public class Close extends Event{
 	private State state;
 	private StoreState store;
