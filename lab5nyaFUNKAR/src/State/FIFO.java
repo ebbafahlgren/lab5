@@ -7,6 +7,9 @@ import java.util.NoSuchElementException;
  *
  */
 
+/**
+* Kön i butiken är en FIFO kö
+*/
 public class FIFO {
 
 	private int customersQueued = 0;
@@ -77,7 +80,10 @@ public class FIFO {
 	public void addCustomers() {
 		customersQueued++;
 	}
-	
+	/**
+	* Returnerar totala antalet i kön vid en viss tidpunkt
+	* @return customersQueued
+	*/
 	public int getCustomerInQueueTot() {
 		return customersQueued;
 	}
