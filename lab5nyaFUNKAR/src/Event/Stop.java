@@ -11,6 +11,10 @@ import State.StoreState;
  *
  */
 
+/**
+ * The class stop describes how a stop event works
+ */
+
 public class Stop extends Event {
 	private double time;
 	private State state;
