@@ -16,6 +16,10 @@ import State.StoreTime;
  *
  */
 
+/**
+ * The class arrival class describes how an arrival event works
+ */
+
 public class Arrival extends Event {
 	private Pick pickEvent;
 	private double arrivalTime;
