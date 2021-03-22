@@ -29,7 +29,17 @@ public class Optimize implements K{
     /**
      * Runs first method with given parameters and returns the total amount of
      * failed payments.
-     *
+     * @param maxCustomers maximum number of customers
+     * @param registers number of registers
+     * @param closingTime the time that the store closes
+     * @param lambda expected value of customers arrival
+     * @param seed the seed sent in
+     * @param minPick the minumum pick time
+     * @param maxPick the maximum pick time
+     * @param minPay the minumum pay time
+     * @param maxPick the maximum pay time
+     * @param state the general state
+     * @param eventQueue the queue of events
      * @return the number of failed payments
      */
     public static int metod1(int maxCustomers, int registers, double closingTime, double lambda,
@@ -50,7 +60,7 @@ public class Optimize implements K{
      * with the maximum amount of customers and iterates downwards until the optimal
      * amount of registers have been found.
      * Second method runs the first method until we find the min amount of registers
-     *
+     * @param seed fröt som skickas in
      * @return optimal number of registers for this specific seed
      */
     public int metod2(long seed) {
@@ -122,7 +132,7 @@ public class Optimize implements K{
      * Runs the second method with various seeds. Saving the max of the min number
      * of registers. The method continues until nothing has changed after given
      * number of iterations
-     *
+     * @param seed är fröt vi skickar in
      * @return the max of the min number of registers with the different seeds.
      */
     public int metod3(long seed) {
