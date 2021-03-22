@@ -98,27 +98,6 @@ public class StoreView extends View {
 
 				, df.format(store.getTotalQueueTime()), store.getTheFIFO().size(), store.getPrintedQueue());
 	}
-//	private void printEvent() {
-//
-//		String formatCurrEvent = "" + eventQueue.writeOut();
-//		if (formatCurrEvent.length() < 4) {
-//			formatCurrEvent = formatCurrEvent + " ";
-//		}
-//
-//		int checkCustomerNull;
-//		if (store.getCustomer() == null) {
-//			checkCustomerNull = Integer.parseInt("---");
-//		} else {
-//			checkCustomerNull = store.getCustomer().getID();
-//		}
-//
-//		System.out.println(formatNumber(eventQueue.getCurrentEvent().getTime()) + "\t" + formatCurrEvent + "\t\t" + checkCustomerNull + "\t"
-//				+ store.isStoreOpen() + "\t" + store.getAvailableRegisters() + "\t"
-//				+ formatNumber(store.getRegisterFreetime()) + "\t" + store.totalCustomers() + "\t"
-//				+ store.getCustomerPayed() + "\t" + store.getCustomerNotPayed() + "\t"
-//				+ store.getTotCustomersInRegisterQueue() + "\t" + formatNumber(store.getTotalQueueTime()) + "\t"
-//				+ store.getTheFIFO().size() + "\t" + store.getTheFIFO());
-
 
 	  /**
    	  *
