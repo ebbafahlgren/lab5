@@ -33,8 +33,9 @@ public class Arrival extends Event {
 	/** 
 	 * @param state kommer ange statusen som ankomst
 	 * @param eventQueue ankomsten påverkar eventkön
+	 * @param arrivalTime ankomsttiden
+	 * @param generalTime den generella butikstiden
 	 */
-	
 	public Arrival(StoreState store, State state, double arrivalTime, EventQueue eventQueue, StoreTime generalTime) {
 
 		this.store = store;
@@ -44,15 +45,13 @@ public class Arrival extends Event {
 		this.arrivalTime = arrivalTime;
 
 		customer = store.createCustomer();
-
 	}
+	
 	/** 
 	 * doThis. uppdaterar vad som sker nÃ¤r en kund ankommer butiken. 
 	 * Antal kunder i butiken uppdateras
 	 * NÃ¤sta event kommer vara att kunden plockar varor. 
 	 */
-
-
 	public void doThis() {
 
 		store.updateTime(arrivalTime);
@@ -84,7 +83,9 @@ public class Arrival extends Event {
 		}
 	}
 
-
+	/**
+	 * @Param c sätter kundens status
+	 */
 	public void setCustomerStatus(Customer c) {
 		customer = c;
 	}
