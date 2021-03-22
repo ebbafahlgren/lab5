@@ -20,8 +20,8 @@ public class Close extends Event{
 	
 	/**
 	 * 
-	 * @param state
-	 * @param store
+	 * @param state generell status
+	 * @param store status för specifika butiken
 	 *
 	 */
 
@@ -36,8 +36,6 @@ public class Close extends Event{
 	/**
  	*  doThis uppdates the status to closed.
  	*/
-
-
 	public void doThis() {
 		store.updateTime(store.getClosingTime());
 		store.updateTotRegisterTime(store.getCurrentEventTime(), store.getLastEventTime());
@@ -51,7 +49,6 @@ public class Close extends Event{
 	 * getTime 
 	 * @return closingtime
 	 */
-
 	public double getTime() {
 		return store.getClosingTime();
 	}
@@ -61,7 +58,6 @@ public class Close extends Event{
 	 * Writing out the string closing
 	 * @return "Closing"
 	 */
-
 	public String writeOut() {
 		return "Closing";
 	}
