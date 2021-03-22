@@ -13,6 +13,9 @@ import State.*;
  *
  */
 
+/**
+ * The class Start describes how a start event works
+ */
 public class Start extends Event {
 	private CreateCustomer newCust = new CreateCustomer();
 
@@ -35,7 +38,6 @@ public class Start extends Event {
 	 * @param state starten kommer påverka statusen på butiken till öppen
 	 * @param eventQueue starten kommer påverka eventQueue
 	 */
-
 	public Start(State state, EventQueue eventQueue, StoreState store, StoreTime generalTime) {
 		this.state = state;
 		this.eventQueue = eventQueue;
@@ -78,7 +80,6 @@ public class Start extends Event {
 	 * returns the string 0
 	 * @return 0
 	 */
-
 	public String getCustomerID() {
 		return "0";
 	}
@@ -87,7 +88,6 @@ public class Start extends Event {
 	 * Returns the string start
 	 * @return start
  	 */
-
 	public String writeOut() {
 		return "Start";
 	}
