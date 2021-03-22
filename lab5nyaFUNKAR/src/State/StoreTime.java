@@ -2,6 +2,11 @@ package State;
 
 import Time.*;
 
+/**
+ * @author Ebba Fahlgren, Anton Sandberg, Emma Evergren och Erik Hilmersson
+ *
+ */
+
 public class StoreTime {
 
     private ExponentialRandomStream customerArrived;
@@ -13,21 +18,21 @@ public class StoreTime {
         this.customerPick = new UniformRandomStream(store.getPickMinTime(), store.getPickMaxTime(), store.getSeed());
     }
     /**
-     * @return nästa tid för en ankomsthändelse
+     * @return nÃ¤sta tid fÃ¶r en ankomsthÃ¤ndelse
      */
     public double arrivalTime() {
         return customerArrived.next();
     }
 
     /**
-     * @return nösta tid för en plockhändelse
+     * @return nÃ¶sta tid fÃ¶r en plockhÃ¤ndelse
      */
     public double timePick() {
         return customerPick.next();
     }
 
     /**
-     * @return nästa tid för en betalningshändelse
+     * @return nÃ¤sta tid fÃ¶r en betalningshÃ¤ndelse
      */
     public double timePay() {
         return customerPay.next();
