@@ -140,6 +140,9 @@ public class StoreState extends State {
 	public boolean isStoreOpen() {
 		return isOpen;
 	}
+	/**
+	* @return size of registerqueue
+	*/
 	public int getQueue(){
 		return registerQueue.size();
 	}
@@ -271,8 +274,8 @@ public class StoreState extends State {
 
 	/**
 	 * Uppdaterar kassatiden allt eftersom betalningar görs
-	 * @param currentTime
-	 * @param lastEventTime
+	 * @param currentTime describes the current time
+	 * @param lastEventTime describes the time of the last event
 	 */
 
 	public void updateTotRegisterTime(double currentTime, double lastEventTime) {
@@ -295,8 +298,8 @@ public class StoreState extends State {
 
 	/**
 	 * Uppdaterar den totala kötiden mha den nuvarande tiden minus eventtiden
-	 * @param currentTime
-	 * @param lastEventTime
+	 * @param currentTime describes the currentime
+	 * @param lastEventTime describes the time of the last event
 	 */
 	public void updateTotQueueTime(double currentTime, double lastEventTime) {
 		totalQueueTime += (currentTime - lastEventTime) * registerQueue.size();
@@ -304,7 +307,7 @@ public class StoreState extends State {
 
 	/**
 	 * Uppdaterar tiden kontinuerligt så att tiderna räknas rätt för varje event
-	 * @param time
+	 * @param time describes the time
 	 */
 	public void updateTime(double time) {
 		lastEventTime = currentEventTime;
@@ -375,7 +378,9 @@ public class StoreState extends State {
 	public String getPrintedQueue() {
 		return registerQueue.toString();
 	}
-
+	/**
+	* @return registerFreetime 
+	*/
 		public double getRegisterFreetime() {
 		return registerFreetime;
 	}
